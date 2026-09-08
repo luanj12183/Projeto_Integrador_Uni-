@@ -47,5 +47,6 @@ BEGIN
 CONSTRAINT FK_Vendas_Usuarios FOREIGN KEY (UsuariosId) REFERENCES Usuarios(Id),
 CONSTRAINT FK_Vendas_Produtos FOREIGN KEY (ProdutosId) REFERENCES Produtos(Id)
     );
+    
 END;
 GO
