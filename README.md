@@ -8,4 +8,8 @@ projeto/
 │   ├── schema.sql  # Criação do banco e tabelas
 │   └── seed.sql    # Carga inicial de dados de teste
 ├── .gitignore      # Arquivos ignorados pelo Git
+<<<<<<< HEAD
 └── README.md       # Documentação do projeto
+=======
+└── README.md       # Documentação do projeto
+>>>>>>> 8053072 (Configurações iniciais)
