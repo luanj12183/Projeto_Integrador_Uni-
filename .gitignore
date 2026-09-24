@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.mdf
 *.ldf
 *.ndf
@@ -5,3 +6,7 @@
 *.log
 
 Davi é brabo
+=======
+backend/.env
+backend/.env
+>>>>>>> feature/esqueceu-senha
