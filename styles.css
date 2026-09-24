@@ -90,3 +90,23 @@ label{
     border-color:#6F5543;
     outline: none;
 }
+#mensagem {
+    margin-top: 10px;
+    text-align: center;
+}
+#ConfirmarSenha{
+    width:100%;
+    border :2px solid #8B6F5A;
+    height : 45px;
+    border-radius: 8px;
+    padding-left: 10px;
+    padding-right: 40px;
+    margin-right: 0;
+}
+#ConfirmarSenha + i {
+    right: 15px;
+    top: 50%;
+    transform: translatey (-50%);
+    color: #8B6F5A
+    
+} 
