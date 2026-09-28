@@ -11,11 +11,12 @@
     <main class="container">
         <h1>Criar Nova Senha</h1>
         <p style="text-align: center; width: 100%;">Digite e confirme sua nova senha de acesso.</p>
+        <form action="#" method="POST">
 
         <div class="input-box">
             <label for="nova-senha">Nova Senha</label>
             <div class="password-wrapper">
-                <input type="password" id="nova-senha" placeholder=".........">
+                <input type="password" id="nova-senha" name="new-Password" placeholder="Minímo de 8 caracteres" minlength="8" required>
                 <button type="button" class="toggle-password" onclick="togglePasswordVisibility('nova-senha', this)">
                      <svg class="eye-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11 8-11-8z"></path>
@@ -28,7 +29,7 @@
         <div class="input-box">
             <label for="confirmar-senha">Confirmar Nova Senha</label>
             <div class="password-wrapper">
-                <input type="password" id="confirmar-senha" placeholder=".........">
+                <input type="password" id="confirmar-senha" name="confirmPassword" placeholder="Repita a nova senha" minlength="8" required>
                 <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmar-senha', this)">
                     <svg class="eye-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11 8-11-8z"></path>
@@ -37,32 +38,6 @@
                 </button>
             </div>
         </div>
-    </main>
-
-        <form action="#" method="POST">
-            <div class="input-box">
-                <label for="new-password">Nova Senha</label>
-                <input
-                    type="password"
-                    id="new-password"
-                    name="newPassword" 
-                    placeholder="Mínimo de 8 caracteres" 
-                    minlength="8"
-                    required
-                >
-            </div>
-
-            <div class="input-box">
-                <label for="confirm-password">Confirmar Nova Senha</label>
-                <input
-                    type="password"
-                    id="confirm-password"
-                    name="confirmPassword"
-                    placeholder="Repita a nova senha"
-                    minlength="8"
-                    required
-                >
-            </div>
 
             <button type="submit">Salvar Nova Senha</button>
 
@@ -74,7 +49,7 @@
 
 <script>
     function togglePasswordVisibility(inputId, btn) {
-        const input = documentgetElementyById(inputId);
+        const input = document.getElementById(inputId);
         const svg = btn.querySelector('svg');
 
         if (input.type === 'password') {
