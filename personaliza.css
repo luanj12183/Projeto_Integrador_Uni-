@@ -14,7 +14,7 @@ body {
     padding: 20px;
 }
 
-.card-container {
+.container {
     background: #fdfbf7;
     border: 1px solid #c0b2a1;
     border-radius: 12px;
@@ -38,7 +38,7 @@ h2 {
     margin-bottom: 24px;
 }
 
-.input-group input {
+.input-box input {
     width: 100%;
     padding: 12px 14px;
     background-color: #fcfbfa;
@@ -50,11 +50,11 @@ h2 {
     transition: border-color 0.2s;
 }
 
-.input-group input::placeholder {
+.input-box input::placeholder {
     color: #a09384;
 }
 
-.input-group input:focus {
+.input-box input:focus {
     border-color: #8c725d;
 }
 
@@ -90,9 +90,8 @@ button[type="submit"]:hover {
 
 .password-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
     width: 100%;
+    display: block;
 }
 
 .password-wrapper input {
@@ -104,11 +103,21 @@ button[type="submit"]:hover {
 .toggle-password {
     position: absolute;
     right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
     background: transparent;
     border: none;
-    cursor: pointer;
     padding: 0;
+    margin: 0;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    color: #333;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+button.toggle-password:hover {
+    background: transparent;
 }
