@@ -90,3 +90,15 @@ label{
     border-color:#6F5543;
     outline: none;
 }
+
+.input-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 13px;
+    color: #7a6e63;
+    margin-bottom: 6px;
+}
