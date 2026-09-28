@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir Senha</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <main class="card-container">
+        <h2>Criar Nova Senha</h2>
+        <p class="subtitle">Digite e confirme sua nova senha de acesso.</p>
+
+        <form action="#" method="POST">
+            <div class="input-group">
+                <label for="new-password">Nova Senha</label>
+                <input
+                    type="password"
+                    id="new-password"
+                    name="newPassword" 
+                    placeholder="Mínimo de 8 caracteres" 
+                    minlength="8"
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="confirm-password">Confirmar Nova Senha</label>
+                <input
+                    type="password"
+                    id="confirm-password"
+                    name="confirmPassword"
+                    placeholder="Repita a nova senha"
+                    minlength="8"
+                    required
+                >
+            </div>
+
+            <button type="submit">Salvar Nova Senha</button>
+
+            <a href="index.html" class="back-link">Voltar para o Login</a>
+        </form>
+        </main>
+
+</body>
+</html>
