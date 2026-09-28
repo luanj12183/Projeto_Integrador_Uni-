@@ -10,7 +10,21 @@
     
     <main class="container">
         <h1>Criar Nova Senha</h1>
-        <p class="subtitle">Digite e confirme sua nova senha de acesso.</p>
+        <p style="text-align: center; width: 100%;">Digite e confirme sua nova senha de acesso.</p>
+
+        <div class="input-box">
+            <label for="nova-senha">Nova Senha</label>
+            <div class="password-wrapper">
+                <input type="password" id="nova-senha" placeholder=".........">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility('nova-senha', this)">
+                     <svg class="eye-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11 8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
 
         <form action="#" method="POST">
             <div class="input-box">
