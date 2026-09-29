@@ -12,3 +12,43 @@ body {
     background-color: #eee4d8;
     color: #4b3524;
 }
+
+/* ESTILIZAÇão DE TODO O CABEÇALHO :DD */
+
+header {
+    width: 92%; /*Largura do espaço em bege*/
+    height: 90px; /*Altura do espaço em bege*/
+    margin: 25px auto; /*Margemzinha para as bordas e ficar automatico*/
+  
+     /*Centralizar os textos e coisinhas no meio e no centro*/
+    display: flex;
+    align-items: center;
+
+    /*Não deixar encostar na borda Professor ;-;*/
+    padding: 0 30px;
+
+    background-color: rgba(255, 250, 244, 0.8);
+    border-radius: 18px;
+}
+
+/* NAVEGAÇÃO */
+/*Grupo de links ESPECIFICADO PARA TUDO*/
+nav {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+
+    gap: 70px;
+}
+
+/*Grupo de links ESPECIFICADO PARAS OTEXTOS*/
+nav a {
+    color: #4b3524;
+
+    text-decoration: none;
+
+    font-size: 16px;
+}
+
+
