@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #d51e0e;
+    background-color: #F5F0EB;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,22 +25,35 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
-h2 {
+h1 {
     color: #8c725d;
     font-size: 26px;
     font-weight: normal;
     margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
-.subtitle {
+.container p {
     color: #7a6e63;
     font-size: 13px;
-    margin-bottom: 24px;
+    margin-bottom: 28px !important;
 }
 
-.input-box input {
+.input-box {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-box label {
+    display: block;
+    font-size: 13px;
+    color: #555555;
+    margin-bottom: 8px;
+}
+
+.password-wrapper input {
     width: 100%;
-    padding: 12px 14px;
+    padding: 12px 40px 12px 14px;
     background-color: #fcfbfa;
     border: 1px solid #c0b2a1;
     border-radius: 6px;
