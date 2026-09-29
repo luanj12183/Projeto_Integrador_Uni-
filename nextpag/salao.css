@@ -35,20 +35,37 @@ header {
 /*Grupo de links ESPECIFICADO PARA TUDO*/
 nav {
     flex: 1;
-
     display: flex;
     justify-content: center;
-
     gap: 70px;
 }
 
 /*Grupo de links ESPECIFICADO PARAS OTEXTOS*/
 nav a {
     color: #4b3524;
-
     text-decoration: none;
-
     font-size: 16px;
 }
 
+/* Vamos mexer na seção de inicio que esta no html para centralizalo >:) */
 
+.inicio {
+    min-height: calc(100vh - 140px);
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 80px;
+}
+
+/* Botão (Conheça nossos serviços, professor) */
+
+button {
+    padding: 16px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: #4b3524;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
