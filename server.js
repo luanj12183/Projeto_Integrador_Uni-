@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static('.')); 
 
-app.post ('/api/solicitar-redefinicao', async (req, res) => {
+app.post('/api/solicitar-redefinicao', async (req, res) => {
     const { email } = req.body;
 
     try {
@@ -51,7 +51,7 @@ app.post('/api/redefinir-senha', async (req, res) => {
 
             db.run(
                 `UPDATE usuarios SET senha = ?, reset_token = NULL, token_expiracao = NULL WHERE id =?`,
-                [novaSenha, usuarios.id],
+                [novaSenha, usuario.id],
                 (err) => {
                     if (err) {
                         console.error('Erro ao salvar senha:', err);
@@ -64,12 +64,9 @@ app.post('/api/redefinir-senha', async (req, res) => {
         }
     );
 
-
-
-
 } catch (error) {
-    console.error('Erro na rota de refinição, error');
-    res.status(500). json({ error: 'Falha ao redefinir a senha.' });
+    console.error('Erro na rota de refinição:', error);
+    res.status(500).json({ error: 'Falha ao redefinir a senha.' });
     }
 });
 
