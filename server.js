@@ -36,14 +36,40 @@ app.post ('/api/solicitar-redefinicao', async (req, res) => {
 });
 
 app.post('/api/redefinir-senha', async (req, res) => {
-
-    const { token, novaSenha } = req.body;
+    const { token, novaSenha } = req.body; 
 
     try {
-        res.status(200).json({ message: 'Senha alterada com sucesso!' }); 
-    } catch (error) {
-        console.error('Erro na rota de redefinição', error);
-        res.status(500).json({ error: 'Falha ao redefinir a senha.' });
+        const agora = new Date().toISOString();
+
+       db.get(
+        `SELECT * FROM usuarios WHERE reset_token = ? AND token_expiracao > ?`,
+        [token, agora],
+        (err, usuario) => {
+            if (err || !usuario) {
+                return res.status(400).json({ error: 'link de redefinição inválido ou expirado.' });
+            }
+
+            db.run(
+                `UPDATE usuarios SET senha = ?, reset_token = NULL, token_expiracao = NULL WHERE id =?`,
+                [novaSenha, usuarios.id],
+                (err) => {
+                    if (err) {
+                        console.error('Erro ao salvar senha:', err);
+                        return res.status(500).json({ error: 'Erro ao salvar a nova senha.' });
+                    }
+
+                    res.status(200).json({ message : 'Senha alterada com sucesso!' });
+                }
+            );
+        }
+    );
+
+
+
+
+} catch (error) {
+    console.error('Erro na rota de refinição, error');
+    res.status(500). json({ error: 'Falha ao redefinir a senha.' });
     }
 });
 
