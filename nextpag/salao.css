@@ -60,6 +60,7 @@ nav a {
 
 /* Botão (Conheça nossos serviços, professor) */
 
+
 button {
     padding: 16px 25px;
     border: none;
@@ -69,3 +70,32 @@ button {
     font-size: 14px;
     cursor: pointer;
 }
+
+/* MELHORAR ESSES TEXTOS QUE ESTÃO FEIOSOS DMSSS ;000*/
+
+.conteudo {
+    max-width: 600px;
+}
+
+.subtitulo {
+
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+/*Mudar o BEM VINDO do html*/
+h1 {
+    margin-bottom: 20px;
+    font-family: Georgia, serif;
+    font-size: 80px;
+    font-weight: 500;
+}
+
+.descricao {
+    max-width: 450px;
+    margin-bottom: 35px;
+    font-size: 19px;
+    line-height: 1.6;
+}
+
+/* FALTA A LOGO PESSOAL, VOU FAZER O CODIGO DE ESTILIZAÇÃO DELA PODE DEIXAR COMIGO :))))*/
