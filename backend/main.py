@@ -1,8 +1,9 @@
+from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 from pathlib import Path 
 import os 
 import secrets 
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean, ForeignKey
@@ -13,6 +14,18 @@ from sendgrid.helpers.mail import Mail
 
 # Abaixo será carregada as variáveis do arquivo .env
 load_dotenv()
+
+# Instância da API 
+app = FastAPI()
+
+# Adição do CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(dotenv_path=BASE_DIR / ".env") 
