@@ -30,17 +30,19 @@
         btnSubmit.disabled = true;
 
         try {
-            const response = await fetch('/api/solicitar-redefinicao', {
+            const response = await fetch('http://localhost:8000/auth/forgot-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }, 
                 body: JSON.stringify ({ email }) 
             });
 
+            const data = await response.json();
+
             if (response.ok) {
                 alert('Se o e-mail estiver cadastrado, você receberá o link de recuperação em instantes!');
                 document.getElementById('email').value = '';
             } else {
-                alert ('Erro ao processar a solicitação. Tente novamente mais tarde.');
+                alert(data.detail || 'Erro ao processar a solicitação. Tente novamente mais tarde.');
             }
         } catch (error) {
             console.error('Erro de conexão', error);

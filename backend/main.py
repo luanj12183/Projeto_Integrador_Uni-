@@ -121,17 +121,18 @@ def forgot_password(payload: ForgotPasswordRequest, db: Session = Depends(get_db
 
 @app.post("/auth/reset-password", status_code=status.HTTP_200_OK)
 def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db)):
+    token_record = db.query(PasswordResetToken).filter( 
         PasswordResetToken.token == payload.token,
         PasswordResetToken.used == False 
     ).first()
 
     if not token_record:
-        raise HTTPException(status_code=400, detail="Token inválidado ou já utlizado.")
+        raise HTTPException(status_code=400, detail="Token inválido ou já utilizado.")
 
     if datetime.utcnow() > token_record.expires_at:
         raise HTTPException(status_code=400, detail="Token Expirado.") 
 
-    user = db.query(User).filter(User.id == token_record.user_id). first()
+    user = db.query(User).filter(User.id == token_record.user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
 
