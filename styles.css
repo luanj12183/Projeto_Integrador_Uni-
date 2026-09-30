@@ -102,3 +102,17 @@ label{
     color: #7a6e63;
     margin-bottom: 6px;
 }
+
+.btn-voltar {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #6b5b4a;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.btn-voltar:hover {
+    text-decoration: underline;
+}
