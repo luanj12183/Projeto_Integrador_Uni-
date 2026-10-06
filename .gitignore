@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-*.mdf
-*.ldf
-*.ndf
+node_modules/
+teste.db
 .env
-*.log
-
-=======
-backend/.env
-backend/.env
->>>>>>> feature/esqueceu-senha
+__pycache__/
+venv/
