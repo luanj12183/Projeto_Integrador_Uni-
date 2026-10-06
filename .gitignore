@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+*.mdf
+*.ldf
+*.ndf
+.env
+*.log
+
+=======
+backend/.env
+backend/.env
+>>>>>>> feature/esqueceu-senha

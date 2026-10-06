@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    background-color: #F5F0EB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: #F5F0EB;
+    border: 2px solid #78604D;
+    border-radius: 8px;
+    padding: 35px 30px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.container h1 {
+    color: #8c725d;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.container p {
+    color: #7a6e63;
+    font-size: 13px;
+    margin-bottom: 28px !important;
+}
+
+.input-box {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-box label {
+    display: block;
+    font-size: 13px;
+    color: #555555;
+    margin-bottom: 8px;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding: 12px 40px 12px 14px;
+    background-color: #fcfbfa;
+    border: 2px solid #8C725D;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #555555;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-box input::placeholder {
+    color: #a09384;
+}
+
+.input-box input:focus {
+    border-color: #8c725d;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #8c725d;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #78604d;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: #8c725d;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.password-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+.password-wrapper input {
+    width: 100% !important;
+    padding-right: 40px !important;
+}
+
+.toggle-password {
+    position: absolute !important;
+    right: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    width: auto !important;
+    height: auto !important;
+    color: #333 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+button.toggle-password svg {
+    width: 18px !important;
+    height: 18px !important;
+    color: #7a6e63 !important;
+}
+
+button.toggle-password:hover, button.toggle-password:focus {
+    background: transparent !important;
+    outline: none !important;
+}

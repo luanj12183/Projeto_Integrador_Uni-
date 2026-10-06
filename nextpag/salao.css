@@ -1,0 +1,101 @@
+css
+
+/*Aplica para o site GERALLL :::)*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eee4d8;
+    color: #4b3524;
+}
+
+/* ESTILIZAÇão DE TODO O CABEÇALHO :DD */
+
+header {
+    width: 92%; /*Largura do espaço em bege*/
+    height: 90px; /*Altura do espaço em bege*/
+    margin: 25px auto; /*Margemzinha para as bordas e ficar automatico*/
+  
+     /*Centralizar os textos e coisinhas no meio e no centro*/
+    display: flex;
+    align-items: center;
+
+    /*Não deixar encostar na borda Professor ;-;*/
+    padding: 0 30px;
+
+    background-color: rgba(255, 250, 244, 0.8);
+    border-radius: 18px;
+}
+
+/* NAVEGAÇÃO */
+/*Grupo de links ESPECIFICADO PARA TUDO*/
+nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+/*Grupo de links ESPECIFICADO PARAS OTEXTOS*/
+nav a {
+    color: #4b3524;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Vamos mexer na seção de inicio que esta no html para centralizalo >:) */
+
+.inicio {
+    min-height: calc(100vh - 140px);
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 80px;
+}
+
+/* Botão (Conheça nossos serviços, professor) */
+
+
+button {
+    padding: 16px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: #4b3524;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* MELHORAR ESSES TEXTOS QUE ESTÃO FEIOSOS DMSSS ;000*/
+
+.conteudo {
+    max-width: 600px;
+}
+
+.subtitulo {
+
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+/*Mudar o BEM VINDO do html*/
+h1 {
+    margin-bottom: 20px;
+    font-family: Georgia, serif;
+    font-size: 80px;
+    font-weight: 500;
+}
+
+.descricao {
+    max-width: 450px;
+    margin-bottom: 35px;
+    font-size: 19px;
+    line-height: 1.6;
+}
+
+/* FALTA A LOGO PESSOAL, VOU FAZER O CODIGO DE ESTILIZAÇÃO DELA PODE DEIXAR COMIGO :))))*/
