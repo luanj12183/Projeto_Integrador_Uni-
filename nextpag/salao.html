@@ -1,42 +1,84 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOME DO SALAO QUE AINDA N DEFINIMO :ZZZZ</title>
+
+    <title>Nome do Salão</title>
+
     <link rel="stylesheet" href="salao.css">
 </head>
 
 <body>
     <header>
         <div class="logo">
-            LOGO AQUI PESSOAL
+            <a href="#inicio" aria-label="Voltar ao início">
+                <img src="Arquivos/LOGO.PNG" alt="Logo do salão">
+            </a>
         </div>
+
         <nav> <!--Grupo de links onde vai ser feito a mudança de pagina :) -->
-            <a href=".">Serviços</a>
-            <a href=".">Início</a>
-            <a href=".">Produtos</a>
-            <a href=".">FAQ</a>
+            <a href="#sobre" class="link-ativo"> <span>Sobre</span></a>
+            <a href="#servicos"> <span>Serviços</span></a>
+            <a href="#inicio"> <span>Início</span></a>
+            <a href="#produtos"> <span>Produtos</span></a>
+            <a href="faq.html"> <span>FAQ</span></a>
         </nav>
     </header>
+
     <main>
-        <section class="inicio"> <!-- Seção destinada ao inicio :C -->
-            <div class="conteudo"> <!-- Classe de conteudos onde vai ter subtitulo e descrição :Z -->
+        <section class="inicio" id="inicio">
+            <!-- Seção destinada ao inicio :C -->
+
+            <div class="conteudo">
+                <!-- Classe de conteudos onde vai ter subtitulo e descrição :Z -->
+
                 <p class="subtitulo">
-                    CUIDADO - AUTOCUIDADO - BEM-ESTAR
+                    CUIDADO <span>•</span> ESTILO <span>•</span> BEM-ESTAR
                 </p>
-                <h1>
-                    Bem-vindo(a)
-                </h1>
+
+                <h1>Bem-vindo(a)</h1>
+
                 <p class="descricao">
-                    Seu espaço de beleza e Autoestima própria,
-                    Com a melhor qualidade que você espera.
+                    Seu espaço de beleza e autocuidado,
+                    com a qualidade que você merece.
                 </p>
-                <button> <!-- Botão onde vai direcionar para os serviços :S -->
-                    Conheça nossos serviços >
-                </button>
+
+                <!-- Botão onde vai direcionar para os serviços :S -->
+                <a class="botao" href="#servicos">
+                    Conheça nossos serviços
+                    <span>→</span>
+                </a>
             </div>
+        </section>
+
+        <section class="secao" id="sobre">
+            <p class="subtitulo">UM POUCO SOBRE NÓS</p>
+            <h2>Beleza, cuidado e bem-estar</h2>
+            <p>
+                Um espaço pensado para você cuidar de si,
+                renovar sua autoestima e aproveitar cada momento.
+            </p>
+        </section>
+
+        <section class="secao" id="servicos">
+            <p class="subtitulo">O QUE OFERECEMOS</p>
+            <h2>Nossos serviços</h2>
+            <p>
+                Em breve, você poderá conferir aqui todos os
+                serviços disponíveis no nosso salão.
+            </p>
+        </section>
+
+        <section class="secao" id="produtos">
+            <p class="subtitulo">CUIDADO EM CADA DETALHE</p>
+            <h2>Nossos produtos</h2>
+            <p>
+                Estamos preparando esta área para apresentar
+                os produtos que utilizamos e recomendamos.
+            </p>
         </section>
     </main>
 </body>

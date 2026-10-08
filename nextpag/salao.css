@@ -1,101 +1,315 @@
-css
 
 /*Aplica para o site GERALLL :::)*/
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 30px;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #eee4d8;
     color: #4b3524;
+    min-height: 100vh;
 }
 
 /* ESTILIZAÇão DE TODO O CABEÇALHO :DD */
 
 header {
-    width: 92%; /*Largura do espaço em bege*/
-    height: 90px; /*Altura do espaço em bege*/
-    margin: 25px auto; /*Margemzinha para as bordas e ficar automatico*/
-  
-     /*Centralizar os textos e coisinhas no meio e no centro*/
+    width: 92%;
+    min-height: 100px;
+
+    margin: 25px auto;
+
+    /*Centralizar os textos e coisinhas no meio e no centro*/
     display: flex;
     align-items: center;
 
     /*Não deixar encostar na borda Professor ;-;*/
-    padding: 0 30px;
+    padding: 15px 30px;
+    gap: 35px;
 
     background-color: rgba(255, 250, 244, 0.8);
-    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 14px;
+
+    position: relative;
+    z-index: 2;
+}
+
+/* LOGO DO SALÃO */
+
+.logo {
+    width: 85px;
+    height: 85px;
+    flex-shrink: 0;
+}
+
+.logo a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
 }
 
 /* NAVEGAÇÃO */
+
 /*Grupo de links ESPECIFICADO PARA TUDO*/
+
 nav {
     flex: 1;
+
     display: flex;
-    justify-content: center;
-    gap: 70px;
+    align-items: center;
+    justify-content: space-evenly;
+
+    gap: clamp(12px, 3vw, 45px);
+
+    border-left: 1px solid rgba(75, 53, 36, 0.25);
+    padding-left: 25px;
 }
 
-/*Grupo de links ESPECIFICADO PARAS OTEXTOS*/
+/*Grupo de links ESPECIFICADO PARA OS TEXTOS*/
+
 nav a {
-    color: #4b3524;
+    color: #725f4e;
     text-decoration: none;
     font-size: 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 0;
+    position: relative;
+
+    transition: color 0.2s ease;
+}
+
+nav a:hover,
+nav a.link-ativo {
+    color: #4b3524;
+}
+
+nav a:hover::after,
+nav a.link-ativo::after {
+    content: "";
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 2px;
+    background-color: #4b3524;
+}
+
+nav a:first-child {
+    font-weight: bold;
 }
 
 /* Vamos mexer na seção de inicio que esta no html para centralizalo >:) */
 
 .inicio {
-    min-height: calc(100vh - 140px);
+    min-height: calc(100vh - 150px);
 
     display: flex;
     align-items: center;
 
-    padding-left: 80px;
+    padding: 70px 8%;
+
+    /* Imagem de fundo que já está na pasta Arquivos */
+    background-image: url("Arquivos/Background inicio.PNG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Botão (Conheça nossos serviços, professor) */
 
-
-button {
-    padding: 16px 25px;
-    border: none;
-    border-radius: 30px;
-    background-color: #4b3524;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-/* MELHORAR ESSES TEXTOS QUE ESTÃO FEIOSOS DMSSS ;000*/
+/* MELHORAR ESSES TEXTOS QUE ESTÃO FEIOSOS DMSSS ;000 */
 
 .conteudo {
-    max-width: 600px;
+    max-width: 650px;
 }
+
+/* Subtítulo para deixar a página mais elegante */
 
 .subtitulo {
+    margin-bottom: 24px;
 
-    font-size: 15px;
-    letter-spacing: 1px;
+    color: #806953;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: 3px;
+    line-height: 1.8;
 }
 
-/*Mudar o BEM VINDO do html*/
+.subtitulo span {
+    margin: 0 10px;
+}
+
+/* Mudar o BEM VINDO do html */
+
 h1 {
-    margin-bottom: 20px;
-    font-family: Georgia, serif;
-    font-size: 80px;
-    font-weight: 500;
+    margin-bottom: 24px;
+
+    font-family: Arial, sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+
+    font-weight: bold;
+    line-height: 1.1;
+    letter-spacing: -2px;
 }
 
 .descricao {
-    max-width: 450px;
+    max-width: 460px;
+
     margin-bottom: 35px;
+
+    color: #725f4e;
+
     font-size: 19px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* FALTA A LOGO PESSOAL, VOU FAZER O CODIGO DE ESTILIZAÇÃO DELA PODE DEIXAR COMIGO :))))*/
+/* Botão para acessar os serviços :D */
+
+.botao {
+    padding: 16px 25px;
+
+    /* Alinhar o texto e a seta no botão */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+
+    border: none;
+    border-radius: 30px;
+
+    background-color: #4b3524;
+    color: white;
+
+    font-size: 15px;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    /* Deixar o efeito do botão mais suave */
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.botao:hover {
+    background-color: #6b4d35;
+
+    /* Levantar o botão um pouquinho quando passar o mouse */
+    transform: translateY(-2px);
+}
+
+.botao span {
+    font-size: 20px;
+}
+
+/* SEÇÕES ABAIXO DO INÍCIO */
+
+.secao {
+    padding: 90px 8%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.secao h2 {
+    font-size: clamp(30px, 4vw, 45px);
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.secao > p:last-child {
+    max-width: 600px;
+    color: #725f4e;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+/* Ajustes para telas menores, como celulares */
+
+@media (max-width: 650px) {
+
+    header {
+        width: 94%;
+        margin: 15px auto;
+        padding: 15px;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .logo {
+        width: 65px;
+        height: 65px;
+    }
+
+    nav {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid rgba(75, 53, 36, 0.2);
+        padding: 12px 0 0;
+
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        font-size: 13px;
+        gap: 5px;
+    }
+
+    .inicio {
+        min-height: 75vh;
+        padding: 50px 7%;
+
+        background-position: center;
+    }
+
+    .subtitulo {
+        letter-spacing: 2px;
+        font-size: 10px;
+    }
+
+    .subtitulo span {
+        margin: 0 4px;
+    }
+
+    h1 {
+        font-size: clamp(42px, 11vw, 60px);
+    }
+
+    .descricao {
+        font-size: 16px;
+    }
+
+    .botao {
+        padding: 15px 20px;
+        gap: 15px;
+    }
+
+    .secao {
+        padding: 60px 7%;
+    }
+}
