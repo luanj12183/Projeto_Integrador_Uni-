@@ -315,5 +315,146 @@ h1 {
 }
 
 
+/* PAGINA DE PERGUNTAS FREQUENTES :D */
+
+.pagina-faq {
+    min-height: 75vh;
+    padding: 50px 8% 80px;
+}
+
+.faq-intro {
+    max-width: 750px;
+    margin: 20px auto 45px;
+    text-align: center;
+}
+
+.faq-intro h1 {
+    margin-bottom: 20px;
+    font-size: clamp(38px, 5vw, 60px);
+}
+
+.faq-intro > p:last-child {
+    color: #725f4e;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+/* Perguntas que abrem ao clicar */
+
+.faq-lista {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 14px;
+    padding: 22px 25px;
+
+    background-color: rgba(255, 250, 244, 0.8);
+    border: 1px solid rgba(75, 53, 36, 0.12);
+    border-radius: 12px;
+
+    transition: background-color 0.2s ease;
+}
+
+.faq-item:hover {
+    background-color: #fffaf4;
+}
+
+.faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    color: #4b3524;
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+    list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Sinal de + e - para indicar que a pergunta é clicável */
+
+.faq-item summary::after {
+    content: "+";
+    flex-shrink: 0;
+
+    font-size: 25px;
+    font-weight: normal;
+    color: #806953;
+}
+
+.faq-item[open] summary::after {
+    content: "−";
+}
+
+.faq-item p {
+    padding-top: 18px;
+
+    color: #725f4e;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* Parte final da FAQ */
+
+.faq-contato {
+    margin: 65px auto 0;
+    text-align: center;
+}
+
+.faq-contato h2 {
+    margin-bottom: 15px;
+    font-size: 30px;
+    font-weight: normal;
+}
+
+.faq-contato p {
+    margin-bottom: 25px;
+
+    color: #725f4e;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Ajustes da FAQ para celular */
+
+@media (max-width: 650px) {
+
+    .pagina-faq {
+        padding: 35px 6% 60px;
+    }
+
+    .faq-intro {
+        margin-bottom: 30px;
+    }
+
+    .faq-intro > p:last-child {
+        font-size: 15px;
+    }
+
+    .faq-item {
+        padding: 18px;
+    }
+
+    .faq-item summary {
+        font-size: 15px;
+    }
+
+    .faq-item p {
+        font-size: 14px;
+    }
+
+    .faq-contato h2 {
+        font-size: 26px;
+    }
+}
+
 
 
