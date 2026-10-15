@@ -1,23 +1,18 @@
-from fastapi import FastAPI, Depends, status, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Depends, status, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from pathlib import Path 
 import os 
 import secrets 
-from datetime import datetime, timedelta
-from fastapi import FastAPI, HTTPException, Depends, status
+from datetime import datetime, timedelta, timezone
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import declarative_base, sessionmaker, Session 
 from passlib.context import CryptContext 
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail 
-from datetime import datetime, timedelta, timezone
 import ssl 
 ssl._create_default_https_context = ssl._create_unverified_context
-
-# Abaixo será carregada as variáveis do arquivo .env
-load_dotenv()
 
 # Instância da API 
 app = FastAPI(title="API - Recuperação de Senha")
@@ -31,6 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Comando para encontrar o arquivo .env 
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(dotenv_path=BASE_DIR / ".env") 
 
@@ -81,7 +77,7 @@ def get_db():
 # Função para envio do e-mail via SendGrid (API)
 
 def send_reset_email_sendgrid(to_email: str, token: str) -> bool:
-    reset_url = f"http://localhost:3000/redefinir-senha?token={token}"
+    reset_url = f"http://127.0.0.1:5505/redefinirsenha.html?token={token}"
 
     content = f"""
     <h3>Recuperação de Senha</h3>
@@ -98,7 +94,7 @@ def send_reset_email_sendgrid(to_email: str, token: str) -> bool:
     ) 
 
     try:
-        sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
+        sg = SendGridAPIClient(SENDGRID_API_KEY)
         response = sg.send(message)
         print(f">>> E-MAIL ENVIADO COM SUCESSO! Status: {response.status_code}")
         return True
@@ -138,7 +134,7 @@ def forgot_password(
 
     background_tasks.add_task(send_reset_email_sendgrid, user.email, token)
 
-    return {"message": "Se o e-mail estiver cadastrado, a mensagem chegará..."}
+    return {"message": "Se o e-mail estiver cadastrado, a mensagem será enviado ao destino..."}
 
 @app.post("/auth/reset-password", status_code=status.HTTP_200_OK)
 def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db)):
@@ -150,8 +146,9 @@ def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db))
     if not token_record:
         raise HTTPException(status_code=400, detail="Token inválido ou já utilizado.")
 
-    if datetime.now(timezone.utc) > token_record.expires_at:
-        raise HTTPException(status_code=400, detail="Token Expirado.") 
+    expires_at = token_record.expires_at.replace(tzinfo=timezone.utc) if token_record.expires_at.tzinfo is None else token_record.expires_at
+    if datetime.now(timezone.utc) > expires_at:
+        raise HTTPException(status_code=400, detail="token expirado.") 
 
     user = db.query(User).filter(User.id == token_record.user_id).first()
     if not user:
