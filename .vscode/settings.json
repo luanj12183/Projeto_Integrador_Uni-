@@ -1,3 +1,12 @@
 {
-    "liveServer.settings.port": 5505
+    "liveServer.settings.port": 5505,
+    "python-envs.defaultEnvManager": "ms-python.python:venv",
+    "liveServer.settings.ignoreFiles": [
+        "**/*.db*",
+        "**/*.sqlite*",
+        "**/*.py",
+        "**/__pycache__/**",
+        "**/venv/**"
+    ],
+        "liveServer.settings.CustomBrowser": "chrome"
 }

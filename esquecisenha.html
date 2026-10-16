@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Recuperar Senha</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,7 +15,7 @@
             <div class="input-box">
                 <input type="email" id="email" placeholder="Digite seu e-mail" required>
             </div>
-            <button type="button" class="btn">Enviar link</button>
+            <button type="submit" class="btn">Enviar link</button>
             <a href="index.html" class="btn-voltar">Voltar para o Login</a>
         </form>
  
@@ -24,20 +24,15 @@
 
 <script>
 
-    console.log("O ficheiro Javascript está ligado!");
-
     document.addEventListener('DOMContentLoaded', () => {
-        console.log("A página carregou e encontrou o formulário");
 
         const form = document.getElementById('form-esqueci-senha');
         const emailInput = document.getElementById('email');
         const btnSubmit = document.querySelector('.btn'); 
         const mensagemEl = document.getElementById('mensagem'); 
 
-        btnSubmit.addEventListener('click', async (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            console.log("O botão foi clicado!");
             
         mensagemEl.className = 'mensagem';
         mensagemEl.innerText = '';
@@ -46,11 +41,10 @@
         btnSubmit.disabled = true;
 
         try {
-            const response = await fetch('https://hvft7mf9-8000.brs.devtunnels.ms/auth/forgot-password', {
+            const response = await fetch('http://127.0.0.1:8000/auth/forgot-password', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
-                'X-Tunnel-Skip-Anti-Phishing-Page': 'true'
                 },
                 body: JSON.stringify ({ email: emailInput.value }) 
             });
@@ -59,21 +53,17 @@
             console.log("Resposta do servidor:", response.status, data); 
             
             if (response.ok) {
-                console.log("Sucesso");
                mensagemEl.innerText = 'Solicitação de redefinição de senha concluída com sucesso! Verifique sua caixa de mensagem.';
-                mensagemEl.classList.add('sucesso'); 
-                mensagemEl.style.display = 'block';
+                mensagemEl.className = 'mensagem sucesso'; 
                 emailInput.value = '';
             } else { 
                 mensagemEl.innerText = data.detail || 'Erro ao processar a solicitação.';
-                mensagemEl.classList.add('erro');  
-                mensagemEl.style.display = 'block';
+                mensagemEl.className = 'mensagem erro'; 
             }
         } catch (error) {
             console.error('Erro de conexão', error);
             mensagemEl.innerText = 'Erro ao conectar com o servidor. Verifique sua conexão e tente novamente.';
-            mensagemEl.classList.add('erro');
-            mensagemEl.style.display = 'block';
+            mensagemEl.className = 'mensagem erro';
         } finally {
             btnSubmit.innerText = 'Enviar Link';
             btnSubmit.disabled = false;

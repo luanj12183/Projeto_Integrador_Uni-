@@ -1,6 +1,7 @@
 node_modules/
 venv/
 backend/venv/
-teste.db
+*.db*
+*.sqlite*
 .env
 __pycache__/
