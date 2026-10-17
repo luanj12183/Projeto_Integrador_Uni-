@@ -1,3 +1,7 @@
+const API_URL = window.location.hostname.includes('github.dev')
+? `https://${window.location.hostname.replace(/-\d+\.app/, '-8000.app')}`
+: `http://127.0.0.1:8000`; 
+
 const senha = document.getElementById("senha");
 const olhoSenha = document.getElementById("olhoSenha");
 const ConfirmarSenha = document.getElementById("ConfirmarSenha");
@@ -17,17 +21,37 @@ senha.type = "text";
     event.preventDefault();
     if (senha.value ==="") {
         mensagem.textContent = "digite uma senha!";
-        mensagem.style.color = "Red";
+        mensagem.style.color = "red";
   } else {
 if (senha.value===ConfirmarSenha.value){
- mensagem.textContent="Senha Correta!";
- mensagem.style.color = "green";
-} else{
-    mensagem.textContent= "Senha incorreta!";
+
+    fetch(`${API_URL}/auth/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ novaSenha: senha.value })
+    })
+    .then(res => {
+        if (res.ok) {
+            mensagem.textContent = "Senha alterada com sucesso!";
+            mensagem.style.color = "green";
+        } else {
+            mensagem.textContent = "Erro ao alterar no servidor.";
+            mensagem.style.color = "red";
+        }
+    })
+.catch(() => {
+        mensagem.textContent = "Erro de conexão!";
+        mensagem.style.color = "red";
+    });
+
+} else { 
+    mensagem.textContent = "As senhas nao coincidem!";
     mensagem.style.color = "red";
     ConfirmarSenha.value = "";
 }
-}});
+}
+  });
+
 ConfirmarSenha.addEventListener("input" , function() {
     mensagem.textContent ="";
 });
@@ -40,5 +64,3 @@ ConfirmarSenha.type = "text";
     ConfirmarSenha.type ="password";
 }
 });
-
-  
