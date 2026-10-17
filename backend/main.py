@@ -77,12 +77,12 @@ def get_db():
 # Função para envio do e-mail via SendGrid (API)
 
 def send_reset_email_sendgrid(to_email: str, token: str) -> bool:
-    reset_url = f"http://127.0.0.1:5505/redefinirsenha.html?token={token}"
+    reset_url = f"https://redesigned-bassoon-q7wp6grxwvpgf9g4x-5505.app.github.dev/redefinirsenha.html?token={token}"
 
     content = f"""
     <h3>Recuperação de Senha</h3>
-    <p>Você solicitou a redefinição de senha para a sua conta.<p>
-    <p>Clique no link abaixo para criar uma nova senha (válido por 20 minutos!):<p>
+    <p>Você solicitou a redefinição de senha para a sua conta.</p>
+    <p>Clique no link abaixo para criar uma nova senha (válido por 20 minutos!):</p>
     <a href="{reset_url}">Redefinir minha Senha</a>
     """
 

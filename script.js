@@ -1,6 +1,4 @@
-const API_URL = window.location.hostname.includes('github.dev')
-? `https://${window.location.hostname.replace(/-\d+\.app/, '-8000.app')}`
-: `http://127.0.0.1:8000`; 
+const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
 
 const senha = document.getElementById("senha");
 const olhoSenha = document.getElementById("olhoSenha");

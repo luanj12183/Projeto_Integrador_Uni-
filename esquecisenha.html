@@ -24,6 +24,8 @@
 
 <script>
 
+    const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
+
     document.addEventListener('DOMContentLoaded', () => {
 
         const form = document.getElementById('form-esqueci-senha');
@@ -41,7 +43,7 @@
         btnSubmit.disabled = true;
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/auth/forgot-password', {
+            const response = await fetch(`${API_URL}/auth/forgot-password`, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
