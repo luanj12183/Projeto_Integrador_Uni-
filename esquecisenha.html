@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Recuperar senha</h1>
+        <p>Digite o seu e-mail cadastrado pra receber o link de redefinição.</p>
+
+        <form id="form-esqueci-senha">
+            <div class="input-box">
+                <input type="email" id="email" placeholder="Digite seu e-mail" required>
+            </div>
+            <button type="submit" class="btn">Enviar link</button>
+            <a href="index.html" class="btn-voltar">Voltar para o Login</a>
+        </form>
+ 
+        <div id="mensagem" class="mensagem"></div> 
+    </div>
+
+<script>
+
+    const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const form = document.getElementById('form-esqueci-senha');
+        const emailInput = document.getElementById('email');
+        const btnSubmit = document.querySelector('.btn'); 
+        const mensagemEl = document.getElementById('mensagem'); 
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+        mensagemEl.className = 'mensagem';
+        mensagemEl.innerText = '';
+
+        btnSubmit.innerText = 'Enviando...';
+        btnSubmit.disabled = true;
+
+        try {
+            const response = await fetch(`${API_URL}/auth/forgot-password`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify ({ email: emailInput.value }) 
+            });
+
+            const data = await response.json().catch(() => ({}));
+            console.log("Resposta do servidor:", response.status, data); 
+            
+            if (response.ok) {
+               mensagemEl.innerText = 'Solicitação de redefinição de senha concluída com sucesso! Verifique sua caixa de mensagem.';
+                mensagemEl.className = 'mensagem sucesso'; 
+                emailInput.value = '';
+            } else { 
+                mensagemEl.innerText = data.detail || 'Erro ao processar a solicitação.';
+                mensagemEl.className = 'mensagem erro'; 
+            }
+        } catch (error) {
+            console.error('Erro de conexão', error);
+            mensagemEl.innerText = 'Erro ao conectar com o servidor. Verifique sua conexão e tente novamente.';
+            mensagemEl.className = 'mensagem erro';
+        } finally {
+            btnSubmit.innerText = 'Enviar Link';
+            btnSubmit.disabled = false;
+        }
+        });
+    });   
+    </script>
+</body>
+</html>
