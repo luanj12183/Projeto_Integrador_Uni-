@@ -12,12 +12,6 @@
      <main class="container cadastro-container">
     <h1>Cadastro</h1>
 
-    <button type="button" onclick="window.history.back()"> 
-        ← Voltar
-    </button>
-
-    <h2>Criar Conta</h2>
-
     <form id="CadastroForm"> 
 
     <div class="input-box">
@@ -40,10 +34,11 @@
          <i class="bx bx-hide" onclick="toggleSenha('confirmar-senha', this)" style="cursor: pointer;"></i> 
     </div>
 
+<div class="botoes-container">
     <button type="submit">Cadastrar</button>
-    <div id="mensagem" class="mensagem" style="margin-top: 15px;"></div> 
+    <button type="button" class="btn-voltar" onclick="window.history.back()">← Voltar</button> 
+</div>
 </form>
-</div> 
 </main>
    
 <script>
@@ -63,8 +58,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const form = document.querySelector('CadastroForm');
-        const nomeInput = document.getElementyById('nome'); 
+        const form = document.getElementById('CadastroForm');
+        const nomeInput = document.getElementById('nome'); 
         const emailInput = document.getElementById('email');
         const senhaInput = document.getElementById('senha');
         const confirmarSenhaInput = document.getElementById('confirmar-senha');
