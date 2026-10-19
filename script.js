@@ -1,5 +1,5 @@
 const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
-
+const token = new URLSearchParams(window.location.search).get("token");
 const senha = document.getElementById("senha");
 const olhoSenha = document.getElementById("olhoSenha");
 const ConfirmarSenha = document.getElementById("ConfirmarSenha");
@@ -26,7 +26,7 @@ if (senha.value===ConfirmarSenha.value){
     fetch(`${API_URL}/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ novaSenha: senha.value })
+        body: JSON.stringify({ token: token, new_password: senha.value }) 
     })
     .then(res => {
         if (res.ok) {

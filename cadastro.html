@@ -8,7 +8,6 @@
 rel='stylesheet'> 
     <link rel="stylesheet" href="styles.css">
 
-
 </head>
 <body>
      <main class="container cadastro-container">
@@ -16,29 +15,78 @@ rel='stylesheet'>
 
 <form>
     <div class="input-box">
-        <input type="text" placeholder="Nome">
+        <input type="text" id="nome" placeholder="Nome" required>
         <i class="bx bxs-user"> </i>
     </div>
 
     <div class="input-box">
-        <input type="email" placeholder="E-mail">
+        <input type="email" id="email" placeholder="E-mail" required>
         <i class="bx bxs-envelope"></i>
     </div>
 
      <div class="input-box">
-        <input type="password" placeholder="Senha">
+        <input type="password" id="senha" placeholder="Senha" required>
         <i class=" bx bxs-lock-alt"></i>
     </div>
 
      <div class="input-box">
-        <input type="password" placeholder="Confirmar Senha">
+        <input type="password" id="confirmar-senha" placeholder="Confirmar Senha" required>
          <i class=" bx bxs-lock-alt"></i>
     </div>
-    <button type="submit">Cadastrar</button>
-</form>
 
-   </main>
+    <button type="submit">Cadastrar</button>
+    <div id="mensagem" class="mensagem" style="margin-top: 15px;"></div> 
+</form>
+</main>
    
-    
+<script>
+
+    const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        const emailInput = document.getElementById('email');
+        const senhaInput = document.getElementById('senha');
+        const confirmarSenhaInput = document.getElementById('confirmar-senha');
+        const mensagemEl = document.getElementById('mensagem');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (senhaInput.value !== confirmarSenhaInput.value) {
+                mensagemEl.innerText = "As senhas não coincidem!";
+                mensagemEl.style.color = "red"; 
+                return;
+            }
+
+            mensagemEl.innerText = "";
+
+            try {
+                const response = await fetch (`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: emailInput.value,
+                        password: senhaInput.value
+                    })
+                });
+
+                const data = await response.json().catch(() => ({}));
+
+                if (response.ok) {
+                    mensagemEl.innerText = "Usuário cadastrado com sucesso!";
+                    mensagemEl.style.color = "green";
+                    form.reset();
+                } else {
+                    mensagemEl.innerText = data.detail || "Erro ao realizar cadastro.";
+                    mensagemEl.style.color = "red";
+                }
+            } catch (error) {
+                mensagemEl.innerText = "Erro ao conectar com o servidor.";
+                mensagemEl.style.color = "red";
+            }
+        });
+    });
+</script> 
 </body>
 </html>
