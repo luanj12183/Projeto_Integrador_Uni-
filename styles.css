@@ -150,3 +150,34 @@ label{
     flex: 1;
     margin: 0;
 }
+
+.register-link a {
+    color: #8B6F5A;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link a:hover,
+.register-link a:visited,
+.register-link a:active {
+    color: #725a48;
+    text-decoration: underline;
+}
+
+.voltar-container {
+    text-align: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.voltar-container a {
+    color: #8b6f5a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.voltar-container a:hover {
+    color: #725a48;
+    text-decoration: underline;
+}
