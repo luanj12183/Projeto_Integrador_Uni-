@@ -13,6 +13,21 @@ rel='stylesheet'>
      <main class="container cadastro-container">
     <h1>Cadastro</h1>
 
+<div class="container">
+
+    <button type="button" onclick="window.location.back()"> 
+        ← Voltar
+    </button>
+
+    <h2>Criar Conta</h2>
+
+    <form id="cadastroForm">
+
+        <div class="input-group">
+            <label>E-mail:</label>
+            <input type="email" id="email" placeholder="seuemail@gmail.com" required>
+        </div>
+
 <form>
     <div class="input-box">
         <input type="text" id="nome" placeholder="Nome" required>
@@ -24,14 +39,14 @@ rel='stylesheet'>
         <i class="bx bxs-envelope"></i>
     </div>
 
-     <div class="input-box">
+     <div class="input-box" style="position: relative;"> 
         <input type="password" id="senha" placeholder="Senha" required>
-        <i class=" bx bxs-lock-alt"></i>
+        <i class="bx bx-hide" onclick="toggleSenha ('senha', this)" style="cursor: pointer;"><i> 
     </div>
 
      <div class="input-box">
         <input type="password" id="confirmar-senha" placeholder="Confirmar Senha" required>
-         <i class=" bx bxs-lock-alt"></i>
+         <i class=" bx bx--hide" onclick="toggleSenha('confirmar-senha', this)" style="cursor: pointer;"><i> 
     </div>
 
     <button type="submit">Cadastrar</button>
@@ -40,8 +55,10 @@ rel='stylesheet'>
 </main>
    
 <script>
-
     const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
+
+    function toggleSenha(inputId, icon) {
+        const input = document.getElementById(inputId);
 
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('form');
