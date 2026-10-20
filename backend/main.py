@@ -143,7 +143,7 @@ def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db))
         PasswordResetToken.used == False 
     ).first()
 
-    class RegisterRequest(BaseModel):
+class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
     
@@ -163,8 +163,10 @@ def register_user(payload: RegisterRequest, db: Session = Depends(get_db)):
         
     return {"message": "Usuário registrado com sucesso!"}
 
+@app.post("/auth/reset-password")
+def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db)):
     if not token_record:
-    raise HTTPException(status_code=400, detail="Token inválido ou já utilizado.")
+        raise HTTPException(status_code=400, detail="Token inválido ou já utilizado.")
 
     expires_at = token_record.expires_at.replace(tzinfo=timezone.utc) if token_record.expires_at.tzinfo is None else token_record.expires_at
     if datetime.now(timezone.utc) > expires_at:
