@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
-rel='stylesheet'> 
+     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'rel='stylesheet'> 
     <link rel="stylesheet" href="styles.css">
 
 </head>
@@ -13,22 +12,14 @@ rel='stylesheet'>
      <main class="container cadastro-container">
     <h1>Cadastro</h1>
 
-<div class="container">
-
-    <button type="button" onclick="window.location.back()"> 
+    <button type="button" onclick="window.history.back()"> 
         ← Voltar
     </button>
 
     <h2>Criar Conta</h2>
 
-    <form id="cadastroForm">
+    <form id="CadastroForm"> 
 
-        <div class="input-group">
-            <label>E-mail:</label>
-            <input type="email" id="email" placeholder="seuemail@gmail.com" required>
-        </div>
-
-<form>
     <div class="input-box">
         <input type="text" id="nome" placeholder="Nome" required>
         <i class="bx bxs-user"> </i>
@@ -41,17 +32,18 @@ rel='stylesheet'>
 
      <div class="input-box" style="position: relative;"> 
         <input type="password" id="senha" placeholder="Senha" required>
-        <i class="bx bx-hide" onclick="toggleSenha ('senha', this)" style="cursor: pointer;"><i> 
+        <i class="bx bx-hide" onclick="toggleSenha('senha', this)" style="cursor: pointer;"></i> 
     </div>
 
-     <div class="input-box">
+     <div class="input-box" style="position: relative;"> 
         <input type="password" id="confirmar-senha" placeholder="Confirmar Senha" required>
-         <i class=" bx bx--hide" onclick="toggleSenha('confirmar-senha', this)" style="cursor: pointer;"><i> 
+         <i class="bx bx-hide" onclick="toggleSenha('confirmar-senha', this)" style="cursor: pointer;"></i> 
     </div>
 
     <button type="submit">Cadastrar</button>
     <div id="mensagem" class="mensagem" style="margin-top: 15px;"></div> 
 </form>
+</div> 
 </main>
    
 <script>
@@ -59,9 +51,20 @@ rel='stylesheet'>
 
     function toggleSenha(inputId, icon) {
         const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('bx-hide');
+            icon.classList.add('bx-show');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('bx-show');
+            icon.classList.add('bx-hide');
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const form = document.querySelector('form');
+        const form = document.querySelector('CadastroForm');
+        const nomeInput = document.getElementyById('nome'); 
         const emailInput = document.getElementById('email');
         const senhaInput = document.getElementById('senha');
         const confirmarSenhaInput = document.getElementById('confirmar-senha');
@@ -83,6 +86,7 @@ rel='stylesheet'>
                     method: 'POST',
                     headers: {'Content-Type': 'application/json' },
                     body: JSON.stringify({
+                        name: nomeInput.value, 
                         email: emailInput.value,
                         password: senhaInput.value
                     })
