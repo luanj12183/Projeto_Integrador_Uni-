@@ -71,6 +71,8 @@ button:hover{
     display: flex;
     justify-content: space-between;
     align-items: center;
+      margin-bottom: 15px;
+    margin-top: 25px
 }
 .remember-forgot a{
     color: #8B6F5A;
@@ -180,4 +182,10 @@ label{
 .voltar-container a:hover {
     color: #725a48;
     text-decoration: underline;
+}
+google-login {
+    margin-top: 15px;
+}
+.google-login button {
+    margin-top: 10px;
 }
