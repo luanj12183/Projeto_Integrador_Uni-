@@ -163,6 +163,33 @@ def register_user(payload: RegisterRequest, db: Session = Depends(get_db)):
         
     return {"message": "Usuário registrado com sucesso!"}
 
+# Criação da estrutura para aceitar o email e a senha do JSON 
+class LoginRequest(BaseModel);
+    email: EmailStr
+    password: str 
+
+# Rota de login (usuário) 
+@app.post("/auth/login")
+def login(payload: LoginRequest, db: Session = Depends(get_db)):
+    
+    # Busca o usuário no banco
+    user = db.query(User).filter(User.email == payload.email).first() 
+    
+    # Verifica se o usuário existe e se a senha está correta
+    if not user or not pwd_context.verify(payload.password, user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Usuário ou senha incorretos!"
+        )
+        
+    # Gera um token simples para o usuário
+    token = secrets.token_hex(32)
+    
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
+
 @app.post("/auth/reset-password")
 def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db)):
     if not token_record:

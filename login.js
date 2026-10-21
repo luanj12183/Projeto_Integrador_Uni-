@@ -2,7 +2,7 @@ const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.de
 
 const email = document.getElementById("email");
 const senha = document.getElementById("senha");
-const olhoSenha = document.getElementById("olhosenha");
+const olhoSenha = document.getElementById("olhoSenha");
 const formulario = document.querySelector("form");
 const mensagem = document.getElementById("mensagem");
 
@@ -26,10 +26,10 @@ formulario.addEventListener("submit", function(event) {
         })
     })
     .then(async res => {
-        const date = await res.json().catch(() => ({}));
+        const data = await res.json().catch(() => ({}));
 
         if (res.ok) {
-            if (this.dataset.access_token {
+            if (data.access_token) {
                 localStorage.setItem("token", data.access_token);  
             }
 
@@ -37,12 +37,12 @@ formulario.addEventListener("submit", function(event) {
             window.location.href = "salao.html";
 
         } else {
-            mensagem.textContent = data.detail || "E-mail ou senha incorretos!";
+            mensagem.textContent = "Usuário ou senha incorretos";
             mensagem.style.color = "red";
         }
     })
     .catch(() => {
-        mensagem.textContent = "Erro de conecxão com o servidor!";
+        mensagem.textContent = "Usuário ou senha incorretos!";
         mensagem.style.color = "red"; 
     });
 });
