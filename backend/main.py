@@ -20,7 +20,7 @@ app = FastAPI(title="API - Recuperação de Senha")
 
 BASE_DIR = Path(__file__).resolve().parent 
 
-arquivos_path = BASE_DIR / "nextpag" / "Arquivos"
+arquivos_path = BASE_DIR / "Arquivos"
 nextpag_path = BASE_DIR / "nextpag"
 
 arquivos_path.mkdir(parents=True, exist_ok=True)
