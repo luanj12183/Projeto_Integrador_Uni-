@@ -233,7 +233,7 @@ h1 {
 
     /* Usar o mesmo fundo da página inicial */
     background-color: #eee4d8;
-    background-image: url("Arquivos/Background inicio.PNG");
+    background-image: url("/Arquivos/Background%20inicio.PNG");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
