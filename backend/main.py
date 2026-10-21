@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, Depends, status, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from pathlib import Path 
 import os 
@@ -16,6 +17,18 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 # Instância da API 
 app = FastAPI(title="API - Recuperação de Senha")
+
+BASE_DIR = Path(__file__).resolve().parent 
+
+arquivos_path = BASE_DIR / "Arquivos"
+nextpag_path = BASE_DIR / "nextpag"
+
+arquivos_path.mkdir(parents=True, exist_ok=True)
+nextpag_path.mkdir(parents=True, exist_ok=True) 
+
+# Libera o acesso às pastas para o navegador carregar as imagens
+app.mount("/Arquivos", StaticFiles(directory=arquivos_path), name="arquivos")
+app.mount("/nextpag", StaticFiles(directory=nextpag_path), name="nextpag")
 
 # Adição do CORS
 app.add_middleware(
