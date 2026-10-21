@@ -164,7 +164,7 @@ def register_user(payload: RegisterRequest, db: Session = Depends(get_db)):
     return {"message": "Usuário registrado com sucesso!"}
 
 # Criação da estrutura para aceitar o email e a senha do JSON 
-class LoginRequest(BaseModel);
+class LoginRequest(BaseModel): 
     email: EmailStr
     password: str 
 
