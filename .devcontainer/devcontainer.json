@@ -1,0 +1,9 @@
+{
+  "name": "FastAPI Project",
+  "portsAttributes": {
+    "8000": {
+      "label": "FastAPI Backend",
+      "visibility": "public"
+    }
+  }
+}

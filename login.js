@@ -34,7 +34,7 @@ formulario.addEventListener("submit", function(event) {
             }
 
             // Redirecionamento para a página do salão 
-            window.location.href = "salao.html";
+            window.location.href = "nextpag/salao.html";
 
         } else {
             mensagem.textContent = "Usuário ou senha incorretos";
