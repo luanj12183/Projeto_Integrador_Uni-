@@ -149,13 +149,6 @@ def forgot_password(
 
     return {"message": "Se o e-mail estiver cadastrado, a mensagem será enviado ao destino..."}
 
-@app.post("/auth/reset-password", status_code=status.HTTP_200_OK)
-def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db)):
-    token_record = db.query(PasswordResetToken).filter( 
-        PasswordResetToken.token == payload.token,
-        PasswordResetToken.used == False 
-    ).first()
-
 class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
