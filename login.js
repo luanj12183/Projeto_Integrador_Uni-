@@ -2,16 +2,9 @@ const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.de
 
 const email = document.getElementById("email");
 const senha = document.getElementById("senha");
-const olhoSenha = document.getElementById("olhoSenha");
 const formulario = document.querySelector("form");
-const mensagem = document.getElementById("mensagem");
-
-// Alterar ver/ocultar senha
-if (olhoSenha) {
-    olhoSenha.addEventListener("click", function() {
-        senha.type = senha.type === "password" ? "text" : "password"; 
-    });
-}
+const mensagem = document.getElementById("mensagem") || document.createElement("p"); 
+if (!mensagem.parentElement) formulario.appendChild(mensagem);
 
 // Envio de formulário de login
 formulario.addEventListener("submit", function(event) {
