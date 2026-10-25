@@ -209,7 +209,7 @@ google-login {
     width: 200px !important;
     max-width: 280px;
     height: auto!important;
-    margin: 0 !important;
+    margin: 0 auto !important;
 }
 
 .google-login {

@@ -12,9 +12,12 @@
         <p>Digite o seu e-mail cadastrado pra receber o link de redefinição.</p>
 
         <form id="form-esqueci-senha">
-            <div class="input-box">
+            <div class="input-group">
+            <label for="email">E-mail</label>
+            <div class="input-box"> 
                 <input type="email" id="email" placeholder="Digite seu e-mail" required>
             </div>
+        </div> 
             <button type="submit" class="btn">Enviar link</button>
 
           <div class="voltar-container"> 
@@ -36,7 +39,7 @@
         const btnSubmit = document.querySelector('.btn'); 
         const mensagemEl = document.getElementById('mensagem'); 
 
-        email.addEventListener('input', () => {
+        emailInput.addEventListener('input', () => {
             mensagemEl.innerText = '';
             mensagemEl.className = 'mensagem-feedback'; 
         });

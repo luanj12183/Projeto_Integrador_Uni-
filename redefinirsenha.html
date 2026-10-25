@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redefinir Senha</title>
-    <link rel="stylesheet" href="personaliza.css">
+    <link rel="stylesheet" href="personaliza.css?v=2">
 </head>
 <body>
     
-    <main class="container">
+    <div class="container">
         <h1>Redefinir senha</h1>
-        <p style="text-align: center; width: 100%;">Digite e confirme sua nova senha de acesso.</p>
+        <p>Digite e confirme sua nova senha de acesso.</p>
         <form id="form-redefinir"> 
 
-        <div class="input-box">
-            <label for="nova-senha">Nova Senha</label>
-            <div class="password-wrapper">
-            <input type="password" id="nova-senha" name="new-Password" autocomplete="new-password" placeholder="Minímo de 8 caracteres" minlength="8" required>
+        <div class="input-group">
+            <label for="nova-senha" style="text-align: left; display: block;color: #6b5344; width: 100%;">Nova Senha:</label>
+            <div class="input-box password-wrapper">
+            <input type="password" id="nova-senha" name="new-password" autocomplete="new-password" placeholder="Minímo de 8 caracteres" minlength="8" required>
                 <button type="button" class="toggle-password" onclick="togglePasswordVisibility('nova-senha', this)">
                      <svg class="eye-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11 8-11-8z"></path>
@@ -27,9 +27,9 @@
         </div>
 
 
-        <div class="input-box">
-            <label for="confirmar-senha">Confirmar Nova Senha</label>
-            <div class="password-wrapper">
+        <div class="input-group">
+            <label for="nova-senha" style="text-align: left; display: block;color: #6b5344; width: 100%;">Confirmar Nova Senha:</label>
+            <div class="input-box password-wrapper">
                 <input type="password" id="confirmar-senha" name="confirmPassword" autocomplete="new-password" placeholder="Repita a nova senha" minlength="8" required>
                 <button type="button" class="toggle-password" onclick="togglePasswordVisibility('confirmar-senha', this)">
                     <svg class="eye-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
@@ -40,15 +40,15 @@
             </div>
         </div>
 
-            <button type="submit">Salvar Nova Senha</button>
+            <button type="submit" class="btn">Salvar Nova Senha</button>
 
-            <div class="remember-forgot" style="justify-content: center; margin-top: 20px;">
+            <div class="voltar-container"> 
                 <a href="index.html">Voltar Para o Login</a>
             </div>
-            
-            <div id="mensagem" class="mensagem"></div>
         </form>
-    </main>
+
+            <div id="mensagem" class="mensagem-feedback"></div>
+    </div> 
 
 <script>
 
@@ -79,11 +79,19 @@
         const confirmarSenhaInput = document.getElementById('confirmar-senha'); 
         const mensagemEl = document.getElementById('mensagem');
 
+        const limparMensagem = () => {
+            mensagemEl.innerText = '';
+            mensagemEl.className = 'mensagem-feedback';
+        };
+
+        novaSenhaInput.addEventListener('input', limparMensagem);
+        confirmarSenhaInput.addEventListener('input', limparMensagem);
+    
         const token = new URLSearchParams(window.location.search).get('token');
 
         if (!token) {
             mensagemEl.innerText = 'Token ausente ou inválido. Solicite novamente pelo email!';
-            mensagemEl.className = 'mensagem erro';
+            mensagemEl.className = 'mensagem-feedback erro';
          }
 
          form.addEventListener('submit', async (e) => {
@@ -93,11 +101,11 @@
 
             if (novaSenhaInput.value !== confirmarSenhaInput.value) {
                 mensagemEl.innerText = 'As senhas não coincidem!';
-                mensagemEl.className = 'mensagem erro';
+                mensagemEl.className = 'mensagem-feedback erro';
                 return;
             }
 
-            mensagemEl.className = 'mensagem';
+            mensagemEl.className = 'mensagem-feedback';
             mensagemEl.innerText = '';
 
             try {
@@ -111,15 +119,15 @@
 
             if (response.ok) {
                 mensagemEl.innerText = 'Senha alterada com sucesso!';
-                mensagemEl.className = 'mensagem sucesso';
+                mensagemEl.className = 'mensagem-feedback sucesso';
             } else { 
                 const textoErro = (data.detail || 'Erro ao redefinir a senha').replace(/\.$/,'');
                 mensagemEl.innerText = `${textoErro}!`;
-                mensagemEl.className = 'mensagem erro';
+                mensagemEl.className = 'mensagem-feedback erro';
             }
         } catch (error) {
             mensagemEl.innerText = 'Erro ao conectar com o servidor.'; 
-            mensagemEl.className = 'mensagem erro'; 
+            mensagemEl.className = 'mensagem-feedback erro'; 
         }
     });
 });

@@ -198,6 +198,8 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
 
 @app.post("/auth/reset-password")
 def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db)):
+    token_record = db.query(PasswordResetToken).filter(PasswordResetToken.token == payload.token, PasswordResetToken.used == False).first()
+    
     if not token_record:
         raise HTTPException(status_code=400, detail="Token inválido ou já utilizado.")
 
