@@ -19,7 +19,7 @@ senha.type = "text";
     event.preventDefault();
     if (senha.value ==="") {
         mensagem.textContent = "digite uma senha!";
-        mensagem.style.color = "red";
+        mensagem.className = "mensagem-feedback erro";
   } else {
 if (senha.value===ConfirmarSenha.value){
 
@@ -31,20 +31,20 @@ if (senha.value===ConfirmarSenha.value){
     .then(res => {
         if (res.ok) {
             mensagem.textContent = "Senha alterada com sucesso!";
-            mensagem.style.color = "green";
+            mensagem.className = "mensagem-feedback sucesso";
         } else {
             mensagem.textContent = "Erro ao alterar no servidor.";
-            mensagem.style.color = "red";
+            mensagem.className = "mensagem-feedback erro";
         }
     })
 .catch(() => {
         mensagem.textContent = "Erro de conexão!";
-        mensagem.style.color = "red";
+        mensagem.className = "mensagem-feedback erro";
     });
 
 } else { 
     mensagem.textContent = "As senhas nao coincidem!";
-    mensagem.style.color = "red";
+    mensagem.className = "mensagem-feedback erro";
     ConfirmarSenha.value = "";
 }
 }
@@ -52,6 +52,7 @@ if (senha.value===ConfirmarSenha.value){
 
 ConfirmarSenha.addEventListener("input" , function() {
     mensagem.textContent ="";
+    mensagem.className = "mensagem-feedback";
 });
 
  olhoConfirmarSenha.addEventListener("click", function() {

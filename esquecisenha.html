@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar Senha</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
     <div class="container">
@@ -22,7 +22,7 @@
         </div>
     </form>
 
-    <div id="mensagem" class="mensagem"></div> 
+    <div id="mensagem" class="mensagem-feedback"></div> 
 </div> 
 
 <script>
@@ -36,10 +36,15 @@
         const btnSubmit = document.querySelector('.btn'); 
         const mensagemEl = document.getElementById('mensagem'); 
 
+        email.addEventListener('input', () => {
+            mensagemEl.innerText = '';
+            mensagemEl.className = 'mensagem-feedback'; 
+        });
+        
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-        mensagemEl.className = 'mensagem';
+        mensagemEl.className = 'mensagem-feedback';
         mensagemEl.innerText = '';
 
         btnSubmit.innerText = 'Enviando...';
@@ -59,16 +64,16 @@
             
             if (response.ok) {
                mensagemEl.innerText = 'Solicitação de redefinição de senha concluída com sucesso! Verifique sua caixa de mensagem.';
-                mensagemEl.className = 'mensagem sucesso'; 
+                mensagemEl.className = 'mensagem-feedback sucesso'; 
                 emailInput.value = '';
             } else { 
                 mensagemEl.innerText = data.detail || 'Erro ao processar a solicitação.';
-                mensagemEl.className = 'mensagem erro'; 
+                mensagemEl.className = 'mensagem-feedback erro'; 
             }
         } catch (error) {
             console.error('Erro de conexão', error);
             mensagemEl.innerText = 'Erro ao conectar com o servidor. Verifique sua conexão e tente novamente.';
-            mensagemEl.className = 'mensagem erro';
+            mensagemEl.className = 'mensagem-feedback erro';
         } finally {
             btnSubmit.innerText = 'Enviar Link';
             btnSubmit.disabled = false;
