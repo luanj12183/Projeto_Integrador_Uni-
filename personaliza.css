@@ -175,3 +175,54 @@ button.toggle-password:hover, button.toggle-password:focus {
     border: 3px solid #f5c6cb !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+.mensagem-feedback {
+    display: none;
+    width: 100%;
+    padding: 10px 14px;
+    margin-top: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    text-align: center;
+    line-height: 1.4;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.mensagem-feedback.sucesso {
+    display: block;
+    background-color: #d1e7dd;
+    color: #14532d;
+    border: 1px solid #badbcc;
+}
+
+.mensagem-feedback.erro {
+    display: block;
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f4c2c7;
+}
+
+.container .btn-voltar {
+    display: block !important;
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 12px;
+    background-color: transparent !important;
+    color: #836a58 !important;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.container .btn-voltar:hover,
+.container .btn-voltar:focus {
+    color: #6e5747 !important;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    opacity: 0.85;
+}

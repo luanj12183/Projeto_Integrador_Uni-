@@ -14,7 +14,7 @@
         <form id="form-redefinir"> 
 
         <div class="input-group">
-            <label for="nova-senha" style="text-align: left; display: block;color: #6b5344; width: 100%;">Nova Senha:</label>
+            <label for="confirmar-senha" style="text-align: left; display: block;color: #6b5344; width: 100%;">Nova Senha:</label>
             <div class="input-box password-wrapper">
             <input type="password" id="nova-senha" name="new-password" autocomplete="new-password" placeholder="Minímo de 8 caracteres" minlength="8" required>
                 <button type="button" class="toggle-password" onclick="togglePasswordVisibility('nova-senha', this)">
@@ -42,9 +42,7 @@
 
             <button type="submit" class="btn">Salvar Nova Senha</button>
 
-            <div class="voltar-container"> 
-                <a href="index.html">Voltar Para o Login</a>
-            </div>
+                <a href="index.html" class="btn-voltar">Voltar Para o Login</a>
         </form>
 
             <div id="mensagem" class="mensagem-feedback"></div>
