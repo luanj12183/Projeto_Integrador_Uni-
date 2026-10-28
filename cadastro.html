@@ -6,6 +6,7 @@
     <title>Cadastro</title>
      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'rel='stylesheet'> 
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="personaliza.css?v=2">
 
 </head>
 <body>
@@ -34,13 +35,12 @@
         <i class="bx bxs-lock-alt"></i>
     </div>
 
-<div class="botoes-container">
-    <button type="submit">Cadastrar</button>
-    <button type="button" class="btn-voltar" onclick="window.history.back()">← Voltar</button> 
-</div>
+<button type="submit" class="btn">Cadastrar</button>
+<a href="index.html" class="btn-voltar">Voltar para o Login</a>
 </form>
-</main>
-   
+
+<div id="mensagem" class="mensagem-feedback"></div>
+
 <script>
     const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
 
@@ -58,19 +58,29 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Seleção dos elementos do HTML
         const form = document.getElementById('CadastroForm');
         const nomeInput = document.getElementById('nome'); 
         const emailInput = document.getElementById('email');
         const senhaInput = document.getElementById('senha');
         const confirmarSenhaInput = document.getElementById('confirmar-senha');
         const mensagemEl = document.getElementById('mensagem');
+        // Função que limpa as mensagens a serem exibidas
+        const limparMensagem = () => {
+            mensagemEl.innerText = '';
+            mensagemEl.className = 'mensagem-feedback';
+        };
+        // Assosiação da função aos campos de texto 
+        [nomeInput, emailInput, senhaInput, confirmarSenhaInput].forEach(input => {
+            input?.addEventListener('input', limparMensagem);
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             if (senhaInput.value !== confirmarSenhaInput.value) {
                 mensagemEl.innerText = "As senhas não coincidem!";
-                mensagemEl.style.color = "red"; 
+                mensagemEl.className = "mensagem-feedback erro";
                 return;
             }
 
@@ -91,15 +101,16 @@
 
                 if (response.ok) {
                     mensagemEl.innerText = "Usuário cadastrado com sucesso!";
-                    mensagemEl.style.color = "green";
+                    mensagemEl.className = "mensagem-feedback sucesso";
                     form.reset();
                 } else {
-                    mensagemEl.innerText = data.detail || "Erro ao realizar cadastro.";
-                    mensagemEl.style.color = "red";
+                    const textoErro = (typeof data.detail === 'string' ? data.detail : 'Erro ao realizar o cadastro').replace(/\.$/, '')
+                    mensagemEl.innerText = `${textoErro}!`;
+                    mensagemEl.className = "mensagem-feedback erro"; 
                 }
             } catch (error) {
                 mensagemEl.innerText = "Erro ao conectar com o servidor.";
-                mensagemEl.style.color = "red";
+                mensagemEl.className = "mensagem-feedback erro";
             }
         });
     });
