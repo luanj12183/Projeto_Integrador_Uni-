@@ -95,7 +95,7 @@ def send_reset_email_sendgrid(to_email: str, token: str) -> bool:
     content = f"""
     <h3>Recuperação de Senha</h3>
     <p>Você solicitou a redefinição de senha para a sua conta.</p>
-    <p>Clique no link abaixo para criar uma nova senha (válido por 20 minutos!):</p>
+    <p>Clique no link abaixo para criar uma nova senha (válido por 20 minutos!)</p>
     <a href="{reset_url}">Redefinir minha Senha</a>
     """
 
