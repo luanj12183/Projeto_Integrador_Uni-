@@ -158,7 +158,7 @@ def register_user(payload: RegisterRequest, db: Session = Depends(get_db)):
 
     user = db.query(User).filter(User.email == payload.email).first()
     if user:
-        raise HTTPException(status_code=400, detail="Usuário já existe.")
+        raise HTTPException(status_code=400, detail="Usuário já cadastrado")
         
     hashed_password = pwd_context.hash(payload.password)
     new_user = User(email=payload.email, password_hash=hashed_password)

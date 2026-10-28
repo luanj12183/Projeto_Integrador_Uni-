@@ -84,7 +84,7 @@
                 return;
             }
 
-            mensagemEl.innerText = "";
+            limparMensagem();
 
             try {
                 const response = await fetch (`${API_URL}/auth/register`, {
@@ -104,16 +104,24 @@
                     mensagemEl.className = "mensagem-feedback sucesso";
                     form.reset();
                 } else {
-                    const textoErro = (typeof data.detail === 'string' ? data.detail : 'Erro ao realizar o cadastro').replace(/\.$/, '')
+                    let textoErro = typeof data.detail === 'string' ? data.detail : 'Erro ao realizar o cadastro'; 
+
+                    if (textoErro.toLowerCase().includes('existe')) {
+                        textoErro = 'Usuário já cadastrado';
+                    } else {
+                        textoErro = textoErro.replace(/\.$/, '');
+                    }
+
                     mensagemEl.innerText = `${textoErro}!`;
                     mensagemEl.className = "mensagem-feedback erro"; 
                 }
             } catch (error) {
                 mensagemEl.innerText = "Erro ao conectar com o servidor.";
                 mensagemEl.className = "mensagem-feedback erro";
+
             }
         });
-    });
+    }); 
 </script> 
 </body>
 </html>
