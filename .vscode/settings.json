@@ -1,5 +1,5 @@
 {
-    "liveServer.settings.port": 5505,
+    "liveServer.settings.port": 5506,
     "python-envs.defaultEnvManager": "ms-python.python:venv",
     "liveServer.settings.ignoreFiles": [
         "**/*.db*",

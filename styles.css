@@ -255,42 +255,57 @@ header, nav, navbar {
 
 .mensagem-feedback.sucesso,
 .mensagem-feedback.erro {
-    visibility: visible;
-    opacity: 1;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .mensagem-feedback.sucesso {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border: 1px solid #c3e6cb !important;
 }
 
 .mensagem-feedback.erro {
-    visibility: visible !important;
-    opacity: 1 !important;
     background-color: #f8d7da !important;
-    color: #721c24 !important;
+    color: #155724 !important;
     border: 1px solid #f5c6cb !important;
-}
-
-.input-box input,
-.input-group input,
-form input {
-    margin-bottom: 0 !important;
-}
-
-.input-box i,
-.input-group i,
-.input-box img,
-.input-group img {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .input-box,
 .input-group {
     position: relative !important;
-    margin-bottom: 10px !important;
+    width: 100% !important;
+    margin-bottom: 12px !important;
+    display: block !important;
 }
+
+.input-box input,
+.input-group input,
+form input {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    padding-right: 45px !important;
+    box-sizing: border-box !important;
+}
+
+.input-box i,
+.input-group i,
+.input-box img,
+.input-group img,
+.input-box svg,
+.input-group svg {
+    position: absolute !important;
+    top: 50% !important;
+    right: 15px !important;
+    transform: translateY(-0%) !important;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    object-fit: contain !important;
+    pointer-events: none !important;
+
+pointer-events: auto !important;
+cursor: pointer !important;
+} 
