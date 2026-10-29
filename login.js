@@ -3,8 +3,18 @@ const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.de
 const email = document.getElementById("email");
 const senha = document.getElementById("senha");
 const formulario = document.querySelector("form");
-const mensagem = document.getElementById("mensagem") || document.createElement("p"); 
-if (!mensagem.parentElement) formulario.appendChild(mensagem);
+
+function mostrarFeedback(texto, tipo) {
+    const feedback = document.querySelector(".mensagem-feedback");
+    if (! feedback) return;
+
+    feedback.innerText = texto;
+    feedback.className = `mensagem-feedback ${tipo}`;
+
+    setTimeout(() => {
+        feedback.className = "mensagem-feedback";
+    }, 3000);
+}
 
 // Envio de formulário de login
 formulario.addEventListener("submit", function(event) {
@@ -26,16 +36,18 @@ formulario.addEventListener("submit", function(event) {
                 localStorage.setItem("token", data.access_token);  
             }
 
-            // Redirecionamento para a página do salão 
+        // Redirecionamento para a página do salão 
+        mostrarFeedback("Login Realizado com Sucesso!", "sucesso");
+        setTimeout(() => {
             window.location.href = "nextpag/salao.html";
+        }, 1500);
 
         } else {
-            mensagem.textContent = "Usuário ou senha incorretos";
-            mensagem.style.color = "red";
+            const msgErro = data.detail || "Usuário ou senha incorretos";
+            mostrarFeedback(msgErro, "erro");
         }
     })
     .catch(() => {
-        mensagem.textContent = "Usuário ou senha incorretos!";
-        mensagem.style.color = "red"; 
+        mostrarFeedback("Erro ao conectar com o servidor!", "erro");
     });
 });

@@ -237,20 +237,22 @@ header, nav, navbar {
 }
 
 .mensagem-feedback {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    min-height: 42px !important;
-    visibility: hidden;
-    opacity: 0;
-    box-sizing: border-box;
-    text-align: center;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    position: fixed !important;
+    top: 15px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 9999 !important;
+
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important; 
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.3s ease-in-out !important;
 }
 
 .mensagem-feedback.sucesso,
@@ -267,7 +269,7 @@ header, nav, navbar {
 
 .mensagem-feedback.erro {
     background-color: #f8d7da !important;
-    color: #155724 !important;
+    color: #721c24 !important;
     border: 1px solid #f5c6cb !important;
 }
 
@@ -304,7 +306,6 @@ form input {
     width: 20px !important;
     height: 20px !important;
     object-fit: contain !important;
-    pointer-events: none !important;
 
 pointer-events: auto !important;
 cursor: pointer !important;
