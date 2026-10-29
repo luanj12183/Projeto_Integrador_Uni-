@@ -5,7 +5,7 @@ const senha = document.getElementById("senha");
 const formulario = document.querySelector("form");
 
 function mostrarFeedback(texto, tipo) {
-    const feedback = document.querySelector(".mensagem-feedback");
+    const feedback = document.getElementById("mensagem-feedback") || document.querySelector(".mensagem-feedback"); 
     if (! feedback) return;
 
     feedback.innerText = texto;
@@ -17,8 +17,9 @@ function mostrarFeedback(texto, tipo) {
 }
 
 // Envio de formulário de login
-formulario.addEventListener("submit", function(event) {
-    event.preventDefault();
+ if (formulario) {
+     formulario.addEventListener("submit", function(event) {
+        event.preventDefault();
 
     fetch(`${API_URL}/auth/login`, {
         method: "POST",
@@ -43,7 +44,7 @@ formulario.addEventListener("submit", function(event) {
         }, 1500);
 
         } else {
-            const msgErro = data.detail || "Usuário ou senha incorretos";
+            const msgErro = typeof data.detail === "string" ? data.detail : "Usuário ou senha incorretos";
             mostrarFeedback(msgErro, "erro");
         }
     })
@@ -51,3 +52,4 @@ formulario.addEventListener("submit", function(event) {
         mostrarFeedback("Erro ao conectar com o servidor!", "erro");
     });
 });
+ }

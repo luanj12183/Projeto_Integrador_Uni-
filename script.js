@@ -4,7 +4,7 @@ const senha = document.getElementById("senha");
 const olhoSenha = document.getElementById("olhoSenha");
 const ConfirmarSenha = document.getElementById("ConfirmarSenha");
 const formulario = document.querySelector("form");
-const mensagem = document.getElementById("mensagem");
+const mensagem = document.getElementById("mensagem-feedback");
 const olhoConfirmarSenha = document.getElementById("olhoConfirmarSenha");
 
 olhoSenha.addEventListener("click", function() {

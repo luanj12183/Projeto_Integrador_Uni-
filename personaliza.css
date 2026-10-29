@@ -177,40 +177,48 @@ button.toggle-password:hover, button.toggle-password:focus {
 }
 
 .mensagem-feedback {
+    position: fixed !important;
+    top: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     display: block;
-    visibility: hidden;
-    opacity: 0;
     min-height: 38px;
-    width: 100%;
-    padding: 10px 14px;
-    margin-top: 15px;
-    border-radius: 8px;
+    width: max-content !important;
+    max-width: 90% !important;
+    padding: 10px 20px !important;
+    margin-top: 0 !important;
+    border-radius: 8px !important;
     font-size: 13px;
     font-family: inherit;
     text-align: center;
     line-height: 1.4;
     box-sizing: border-box;
-    transition: all 0.3s ease, visibility 0.3s ease;
-}
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    z-index: 9999 !important;
+
+visibility: hidden;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s ease, visibility 0.3s ease;
+} 
 
 .mensagem-feedback.sucesso,
 .mensagem-feedback.erro {
-    visibility: visible;
-    opacity: 1;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto;
 }
 
 .mensagem-feedback.sucesso {
-    display: block;
-    background-color: #d1e7dd;
-    color: #14532d;
-    border: 1px solid #badbcc;
+    background-color: #d1e7dd !important;
+    color: #14532d !important;
+    border: 1px solid #badbcc !important;
 }
 
 .mensagem-feedback.erro {
-    display: block;
-    background-color: #f8d7da;
-    color: #842029;
-    border: 1px solid #f4c2c7;
+    background-color: #f8d7da !important;
+    color: #842029 !important;
+    border: 1px solid #f4c2c7 !important;
 }
 
 .container .btn-voltar {
