@@ -17,6 +17,13 @@ senha.type = "text";
 });
   formulario.addEventListener("submit", function(event){
     event.preventDefault();
+
+    if (!token) {
+        mensagem.textContent = "Link inválido ou sem token!";
+        mensagem.className = "mensagem-feedback erro";
+        return; 
+    }
+
     if (senha.value ==="") {
         mensagem.textContent = "digite uma senha!";
         mensagem.className = "mensagem-feedback erro";
@@ -28,15 +35,21 @@ if (senha.value===ConfirmarSenha.value){
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: token, new_password: senha.value }) 
     })
-    .then(res => {
+
+    .then(async res => {
+        const data = await res.json().catch(() => ({}));
+
         if (res.ok) {
             mensagem.textContent = "Senha alterada com sucesso!";
             mensagem.className = "mensagem-feedback sucesso";
+            setTimeout(() => { window.location.href = "index.html"; }, 2000);
         } else {
-            mensagem.textContent = "Erro ao alterar no servidor.";
+            const msgErro = typeof data.detail === "string" ? data.detail : "Erro ao alterar no servidor.";
+            mensagem.textContent = msgErro;
             mensagem.className = "mensagem-feedback erro";
         }
     })
+    
 .catch(() => {
         mensagem.textContent = "Erro de conexão!";
         mensagem.className = "mensagem-feedback erro";

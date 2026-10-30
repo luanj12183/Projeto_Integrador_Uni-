@@ -45,7 +45,7 @@
                 <a href="index.html" class="btn-voltar">Voltar Para o Login</a>
         </form>
 
-            <div id="mensagem-feedback class="mensagem-feedback"></div>
+            <div id="mensagem-feedback" class="mensagem-feedback"></div>
     </div> 
 
 <script>
@@ -75,7 +75,7 @@
         const form = document.getElementById('form-redefinir');
         const novaSenhaInput = document.getElementById('nova-senha');
         const confirmarSenhaInput = document.getElementById('confirmar-senha'); 
-        const mensagemEl = document.getElementById('mensagem');
+        const mensagemEl = document.getElementById('mensagem-feedback');
 
         const limparMensagem = () => {
             mensagemEl.innerText = '';

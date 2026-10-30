@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
      <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'rel='stylesheet'> 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2">
     <link rel="stylesheet" href="personaliza.css?v=2">
 
 </head>
@@ -64,7 +64,7 @@
         const emailInput = document.getElementById('email');
         const senhaInput = document.getElementById('senha');
         const confirmarSenhaInput = document.getElementById('confirmar-senha');
-        const mensagemEl = document.getElementById('mensagem');
+        const mensagemEl = document.getElementById('mensagem-feedback');
         // Função que limpa as mensagens a serem exibidas
         const limparMensagem = () => {
             mensagemEl.innerText = '';
@@ -103,6 +103,11 @@
                     mensagemEl.innerText = "Usuário cadastrado com sucesso!";
                     mensagemEl.className = "mensagem-feedback sucesso";
                     form.reset();
+
+                    setTimeout(() => {
+                        window.location.href = "index.html"
+                    }, 2000);
+
                 } else {
                     let textoErro = typeof data.detail === 'string' ? data.detail : 'Erro ao realizar o cadastro'; 
 

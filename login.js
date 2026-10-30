@@ -8,7 +8,7 @@ function mostrarFeedback(texto, tipo) {
     const feedback = document.getElementById("mensagem-feedback") || document.querySelector(".mensagem-feedback"); 
     if (! feedback) return;
 
-    feedback.innerText = texto;
+    feedback.textContent = texto;
     feedback.className = `mensagem-feedback ${tipo}`;
 
     setTimeout(() => {
@@ -20,6 +20,11 @@ function mostrarFeedback(texto, tipo) {
  if (formulario) {
      formulario.addEventListener("submit", function(event) {
         event.preventDefault();
+
+        if (!email.value.trim() || !senha.value) {
+            mostrarFeedback("Preencha todos os campos!", "erro");
+            return;
+        }
 
     fetch(`${API_URL}/auth/login`, {
         method: "POST",
