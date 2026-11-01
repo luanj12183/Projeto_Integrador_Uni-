@@ -46,7 +46,7 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY") 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL") 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./teste.db")
+DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite///{BASE_DIR / 'teste.db'}") 
 
 # Suporte das 2 plataformas: do SQL LITE ao SQL SERVER
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}

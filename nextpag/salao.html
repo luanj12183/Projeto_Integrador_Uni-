@@ -14,7 +14,7 @@
             const token = localStorage.getItem("access_token");
 
             if (!token) {
-                window.location.href = "/nextpag/index.html";
+                window.location.href = "../index.html";
                 return;
             }
 
@@ -25,12 +25,13 @@
                 }
             });
 
-            if (resposta.status === 401) {
+            if (!resposta.ok) {
                 localStorage.removeItem("access_token");
-                window.location.href = "/nextpag/index.html";
+                window.location.href = "../index.html";
             }
         } catch (erro) {
             console.error("Erro ao validar o token no servidor:", erro);
+            window.location.href = "../index.html"; 
         }
     })();
     </script> 
