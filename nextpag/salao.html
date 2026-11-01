@@ -8,6 +8,32 @@
     <title>Página Inicial</title>
 
     <link rel="stylesheet" href="salao.css?v=1">
+
+    <script>
+        (async function verificarAcesso () {
+            const token = localStorage.getItem("access_token");
+
+            if (!token) {
+                window.location.href = "/nextpag/index.html";
+                return;
+            }
+
+            try {
+                const resposta = await fetch ("http://localhost:8000/dados-protegidos", {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (resposta.status === 401) {
+                localStorage.removeItem("access_token");
+                window.location.href = "/nextpag/index.html";
+            }
+        } catch (erro) {
+            console.error("Erro ao validar o token no servidor:", erro);
+        }
+    })();
+    </script> 
 </head>
 
 <body>

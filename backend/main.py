@@ -1,3 +1,4 @@
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi import FastAPI, HTTPException, Depends, status, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -61,6 +62,9 @@ class User (Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(255), unique=True, nullable=False) 
     password_hash = Column(String(255), nullable=False)
+    token_sessao = Column(String(255), nullable=True)
+    
+Usuario = User 
 
 class PasswordResetToken(Base):
     __tablename__ = "PasswordResetTokens"
@@ -174,28 +178,45 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str 
 
-# Rota de login (usuário) 
-@app.post("/auth/login")
-def login(payload: LoginRequest, db: Session = Depends(get_db)):
-    
-    # Busca o usuário no banco
-    user = db.query(User).filter(User.email == payload.email).first() 
-    
-    # Verifica se o usuário existe e se a senha está correta
-    if not user or not pwd_context.verify(payload.password, user.password_hash):
+security = HTTPBearer()
+
+def get_usuario_atual(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db)
+):
+            
+    token = credentials.credentials
+    usuario = db.query(Usuario).filter(Usuario.token_sessao == token).first()
+            
+    if not usuario:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Usuário ou senha incorretos!"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token inválido ou expirado.",
+            headers={"WWW-Authenticate": "Bearer"},
         )
-        
-    # Gera um token simples para o usuário
-    token = secrets.token_hex(32)
+    return usuario
+                          
+@app.post("/login")
+def login(dados: LoginRequest, db: Session = Depends(get_db)):
+    usuario = db.query(Usuario).filter(Usuario.email == dados.email).first()
+    
+    if not usuario or not pwd_context.verify(dados.password, usuario.password_hash):
+        raise HTTPException(status_code=401, detail="E-mail ou senha inválidos.")
+    
+    token_acesso = secrets.token_hex(32)
+    usuario.token_sessao = token_acesso
+    db.commit()
     
     return {
-        "access_token": token,
-        "token_type": "bearer"
+        "access_token": token_acesso,
+        "token_type": "bearer",
+        "message": "Login realiado com sucesso!"
     }
-
+    
+@app.get("/dados-protegidos")
+def checar_acesso(usuario_logado: Usuario = Depends(get_usuario_atual)):
+    return {"status": "Autorizado", "usuario": usuario_logado.email}
+        
 @app.post("/auth/reset-password")
 def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db)):
     token_record = db.query(PasswordResetToken).filter(PasswordResetToken.token == payload.token, PasswordResetToken.used == False).first()
