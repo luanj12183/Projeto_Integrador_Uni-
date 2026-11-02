@@ -34,8 +34,13 @@ app.mount("/nextpag", StaticFiles(directory=nextpag_path), name="nextpag")
 # Adição do CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=[
+        "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-5505.app.github.dev",
+        "http://localhost:5505",
+        "http://127.0.0.1:5505"
+        
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -46,19 +51,24 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY") 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL") 
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite///{BASE_DIR / 'teste.db'}") 
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Suporte das 2 plataformas: do SQL LITE ao SQL SERVER
-connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
-engine = create_engine(DATABASE_URL, connect_args=connect_args)
-SessionLocal = sessionmaker(autocommit=False, autoflush= False, bind=engine)
+if not DATABASE_URL:
+    raise ValueError("A variável DATABASE_URL não foi encontrada no arquivo .env!")
+
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+    
+# Conexão direta com o PostgreSQL do Neon 
+engine = create_engine(DATABASE_URL) 
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 pwd_context = CryptContext (schemes=["bcrypt"], deprecated="auto")
 
 # Modelos do Banco de Dados
-class User (Base):
-    __tablename__ = "Users"
+class User(Base):
+    __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(255), unique=True, nullable=False) 
     password_hash = Column(String(255), nullable=False)
@@ -67,9 +77,9 @@ class User (Base):
 Usuario = User 
 
 class PasswordResetToken(Base):
-    __tablename__ = "PasswordResetTokens"
+    __tablename__ = "password_reset_tokens"
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("Users.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     token = Column(String(255), unique=True, nullable=False)
     expires_at = Column(DateTime, nullable=False)
     used = Column(Boolean, default=False)
@@ -139,7 +149,7 @@ def forgot_password(
 
     token = secrets.token_hex(32)
     print(">>> TOKEN GERADO:", token)
-    expiration = datetime.now(timezone.utc) + timedelta(minutes=20)
+    expiration = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(minutes=20) 
 
     db_token = PasswordResetToken(
         user_id=user.id,
@@ -196,7 +206,7 @@ def get_usuario_atual(
         )
     return usuario
                           
-@app.post("/login")
+@app.post("/auth/login")
 def login(dados: LoginRequest, db: Session = Depends(get_db)):
     usuario = db.query(Usuario).filter(Usuario.email == dados.email).first()
     
