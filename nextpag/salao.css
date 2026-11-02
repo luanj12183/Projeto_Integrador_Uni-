@@ -60,7 +60,7 @@ header {
     height: 100%;
     display: block;
     object-fit: contain;
-    transform: scale(2.5);
+    transform: scale(2.4);
     transform-origin: center;
 }
 
