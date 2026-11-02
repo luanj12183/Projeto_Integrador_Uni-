@@ -60,6 +60,8 @@ header {
     height: 100%;
     display: block;
     object-fit: contain;
+    transform: scale(2.5);
+    transform-origin: center;
 }
 
 /* NAVEGAÇÃO */
@@ -426,6 +428,8 @@ h1 {
 }
 
 .btn-sair {
+    padding: 6px 14px;
+    border-radius: 20px;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -436,14 +440,20 @@ h1 {
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 500;
-    margin-left: 10px;
+    margin-left: 20px;
     transition: background-color 0.3s ease;
 }
 
 .btn-sair i {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
+    vertical-align: middle;
 }
 
 .btn-sair:hover {
     background-color: #a93226;
+}
+
+.btn-sair::after {
+    display: none !important;
+    content: none !important;
 }
