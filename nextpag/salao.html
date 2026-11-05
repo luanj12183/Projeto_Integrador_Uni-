@@ -68,21 +68,24 @@
     </header>
 
     <main>
-        <section class="inicio" id="inicio">
+        <section class="hero-carousel" id="inicio">
+            <button class="hero-arrow prev" id="heroPrev" aria-label="Anterior">&lsaquo;</button>
+
             <!-- Seção destinada ao inicio :C -->
 
-            <div class="conteudo">
-                <!-- Classe de conteudos onde vai ter subtitulo e descrição :Z -->
+            <div class="hero-wrapper" id="heroWrapper">
 
-                <p class="subtitulo">
-                    CUIDADO <span>•</span> ESTILO <span>•</span> BEM-ESTAR
-                </p>
+                <div class="hero-slide slide-welcome">
 
-                <h1>Bem-vindo(a)</h1>
-
-                <p class="descricao">
-                    Seu espaço de beleza e autocuidado,
-                    com a qualidade que você merece.
+                <!-- SLIDE 3: Inicío -->    
+                    <div class="conteudo">
+                        <p class="subtitulo">
+                            CUIDADO <span>•</span> ESTILO <span>•</span> BEM-STAR 
+                        </p> 
+                     <h1>Bem-vindo(a)</h1>
+                    <p class="descricao">
+                        Seu espaço de beleza e autocuidado,
+                        com a qualidade que você merece.
                 </p>
 
                 <!-- Botão onde vai direcionar para os serviços :S -->
@@ -91,7 +94,37 @@
                     <span>→</span>
                 </a>
             </div>
-        </section>
+            </div>
+
+
+        <!-- SLIDE 2: Agendamento -->
+        <div class="hero-slide slide-welcome"> 
+            <div class="slide-overlay"> 
+                <p class="subtitulo">PRATICIDADE E CONFORTO AO SEU LADO</p>
+                <h2>agendamento</h2>
+                <p class="descricao">Garanta o seu horário com os nossos profissionais de forma rápida.</p>
+                <a class="botao" href="agendamento.html">
+                    Agendar horário <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Produtos -->
+         <div class="hero-slide slide-welcome">
+            <div class="slide-overlay">
+                <p class="subtitulo">CUIDADO EM CASA</p>
+                <h2>produtos</h2>
+                <p class="descricao">Conheça os produtos que utilizamos e recomendamos.</p> 
+                <a class="botao" href="#produtos"> 
+                    Ver Produtos <span>→</span>
+                </a>
+            </div>
+            </div>
+
+            </div>
+
+            <button class="hero-arrow next" id="heroNext" aria-label="Próximo">&rsaquo;</button>
+            </section>
 
         <section class="secao" id="sobre">
             <p class="subtitulo">UM POUCO SOBRE NÓS</p>
@@ -120,6 +153,24 @@
             </p>
         </section>
     </main>
-</body>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const wrapper = document.getElementById("heroWrapper");
+        const btnPrev = document.getElementById("heroPrev");
+        const btnNext = document.getElementById("heroNext");
+
+        if (wrapper && btnPrev && btnNext) {
+            btnNext.addEventListener("click", () => {
+                wrapper.scrollBy({ left: wrapper.offsetWidth, behavior: "smooth" });
+            });
+
+            btnPrev.addEventListener("click", () => {
+                wrapper.scrollBy({ left: -wrapper.offsetWidth, behavior: "smooth" });
+            });
+        }
+    });
+</script>
+
+</body>
 </html>
