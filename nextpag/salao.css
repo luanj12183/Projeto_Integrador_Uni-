@@ -486,12 +486,12 @@ h1 {
     max-width: 100% !important;
     min-height: 70vh !important;
     box-sizing: border-box !important;
-    padding: 40px 80px !important;
+    padding: 40px 100px !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: center !important;
-    text-align: center !important;
+    text-align: left !important;
     scroll-snap-align: start !important;
     background-color: #f5efe6 !important;
 }
@@ -527,3 +527,32 @@ h1 {
 .hero-arrow.next {
     right: 20px !important;
 }
+
+.hero-dots {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    display: flex !important;
+    gap: 12px !important;
+    z-index: 1000 !important;
+}
+
+.hero-dots .dot {
+    width: 12px !important; 
+    height: 12px !important;
+    background-color: rgba(92, 61, 46, 0.3) !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    transition: all 0.3 ease !important;    
+}
+
+.hero-dots .dot:hover {
+    background-color: rgba(92, 61, 46, 0.6) !important;
+}
+
+.hero-dots .dot.active {
+    background-color: #5c3d2e !important;
+    transform: scale(1.25) !important;
+} 

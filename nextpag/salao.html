@@ -99,9 +99,9 @@
 
         <!-- SLIDE 2: Agendamento -->
         <div class="hero-slide slide-welcome"> 
-            <div class="slide-overlay"> 
+            <div class="conteudo"> 
                 <p class="subtitulo">PRATICIDADE E CONFORTO AO SEU LADO</p>
-                <h2>agendamento</h2>
+                <h1>Agendamento</h1>
                 <p class="descricao">Garanta o seu horário com os nossos profissionais de forma rápida.</p>
                 <a class="botao" href="agendamento.html">
                     Agendar horário <span>→</span>
@@ -111,9 +111,9 @@
 
         <!-- SLIDE 3: Produtos -->
          <div class="hero-slide slide-welcome">
-            <div class="slide-overlay">
+            <div class="conteudo">
                 <p class="subtitulo">CUIDADO EM CASA</p>
-                <h2>produtos</h2>
+                <h1>Produtos</h1>
                 <p class="descricao">Conheça os produtos que utilizamos e recomendamos.</p> 
                 <a class="botao" href="#produtos"> 
                     Ver Produtos <span>→</span>
@@ -124,6 +124,12 @@
             </div>
 
             <button class="hero-arrow next" id="heroNext" aria-label="Próximo">&rsaquo;</button>
+
+            <div class="hero-dots" id="heroDots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+            </div>
             </section>
 
         <section class="secao" id="sobre">
@@ -159,6 +165,7 @@
         const wrapper = document.getElementById("heroWrapper");
         const btnPrev = document.getElementById("heroPrev");
         const btnNext = document.getElementById("heroNext");
+        const dots = document.querySelectorAll(".hero-dots .dot");
 
         if (wrapper && btnPrev && btnNext) {
             btnNext.addEventListener("click", () => {
@@ -169,7 +176,26 @@
                 wrapper.scrollBy({ left: -wrapper.offsetWidth, behavior: "smooth" });
             });
         }
+
+        if (wrapper && dots.length >0) {
+            dots.forEach((dot, index) => {
+                dot.addEventListener("click", () => {
+                    wrapper.scrollTo({
+                        left: wrapper.offsetWidth * index,
+                        behavior: "smooth"
+                    });
+                });
+            });
+            
+            wrapper.addEventListener("scroll", () => {
+                const currentIndex = Math.round(wrapper.scrollLeft / wrapper.offsetWidth);
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle("active", i === currentIndex); 
+                });
+            });
+        }
     });
+
 </script>
 
 </body>
