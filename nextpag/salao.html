@@ -167,13 +167,51 @@
         const btnNext = document.getElementById("heroNext");
         const dots = document.querySelectorAll(".hero-dots .dot");
 
-        if (wrapper && btnPrev && btnNext) {
-            btnNext.addEventListener("click", () => {
-                wrapper.scrollBy({ left: wrapper.offsetWidth, behavior: "smooth" });
-            });
+        // Função de próximo Banner
+        function proximoSlide() {
+            if (!wrapper) return;
+            const maxScroll = wrapper.scrollWidth - wrapper.offsetWidth;
 
-            btnPrev.addEventListener("click", () => {
+        if (wrapper.scrollLeft >= maxScroll - 10) {
+            wrapper.scrollTo({ left: 0, behavior: "smooth" }); 
+        } else {
+                wrapper.scrollBy({ left: wrapper.offsetWidth, behavior: "smooth" });
+        }
+    }
+            // Função de banner anterior 
+            function slideAnterior () {
+                if (!wrapper) return;
+                const maxScroll = wrapper.scrollWidth - wrapper.offsetWidth;
+
+            if (wrapper.scrollLeft <=10) {
+                wrapper.scrollTo({ left: maxScroll, behavior: "smooth" });
+            } else {
                 wrapper.scrollBy({ left: -wrapper.offsetWidth, behavior: "smooth" });
+            }
+        }
+
+        // Temporizador de 5seg 
+        let autoplayTimer = setInterval(proximoSlide, 5000);
+
+        // Reinicia a contagem de 5s ao interagir manualmente 
+        function reiniciarAutoPlay() {
+            clearInterval(autoplayTimer);
+            autoplayTimer = setInterval(proximoSlide, 5000);
+        }
+
+        // Clique nas setas
+        if (btnNext) {
+            btnNext.addEventListener("click", () => {
+                proximoSlide();
+                reiniciarAutoPlay();
+            });
+        }
+
+        // Clique nas bolinhas de navegação + atualização visual ao rolar a pág
+        if (btnPrev) {
+            btnPrev.addEventListener("click", () => {
+                slideAnterior();
+                reiniciarAutoPlay();
             });
         }
 
@@ -184,19 +222,16 @@
                         left: wrapper.offsetWidth * index,
                         behavior: "smooth"
                     });
+                    reiniciarAutoPlay();
                 });
             });
-            
+
             wrapper.addEventListener("scroll", () => {
                 const currentIndex = Math.round(wrapper.scrollLeft / wrapper.offsetWidth);
                 dots.forEach((dot, i) => {
-                    dot.classList.toggle("active", i === currentIndex); 
+                    dot.classList.toggle("active", i === currentIndex);
                 });
             });
         }
     });
-
-</script>
-
-</body>
-</html>
+</script> 
