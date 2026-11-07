@@ -1,7 +1,7 @@
 import base64
 import subprocess
 import sys
-import pathlib import pathlib
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 VENV_DIR = BASE_DIR / "venv"
@@ -20,9 +20,28 @@ if not ENV_FILE.exists():
     sender_email = base64.b64decode(ENCODED_EMAIL).decode("utf-8")
     db_url = base64.b64decode(ENCODED_DB).decode("utf-8")
     
-    env_content = f"SENDGRID_API_KEY={sg_key}nSENDER_EMAIL={sender_email}\nDATABASE_URL={db_url}\n"
+    env_content = f"SENDGRID_API_KEY={sg_key}\nSENDER_EMAIL={sender_email}\nDATABASE_URL={db_url}\n"
     ENV_FILE.write_text(env_content, encoding="utf-8")
     print ("✅ Arquivo .env criado com sucesso!")
     
-    # 2 Configura caminhos dos executáveis do ambiente virtual
-    
+# 2. Configura caminhos dos executáveis do ambiente virtual
+if sys.platform == "win32":
+    python_bin = VENV_DIR / "Scripts" / "python.exe"
+    pip_bin = VENV_DIR / "Scripts" / "pip.exe"
+else:
+    python_bin = VENV_DIR / "bin" / "python"
+    pip_bin = VENV_DIR / "bin" / "pip"
+        
+# 3. Cria o ambiente virtual (venv) se não existir
+if not VENV_DIR.exists():
+    print("Criando ambiente virtual (venv)...")
+    subprocess.run([sys.executable, "-m", "venv", str(VENV_DIR)], check=True)
+
+# 4. Instala dependências 
+if REQUIREMENTS_FILE.exists():
+    print("Instalando dependências a partir do requirements.txt...")
+    subprocess.run([str(pip_bin), "install", "-r", str(REQUIREMENTS_FILE)], check=True)
+                
+# 5. Inicia o servidor FastAPI/Uvicorn
+print("\n✅ tudo pronto! Servidor rodando em http://127.0.0.1:8000\n") 
+subprocess.run([str(python_bin), "-m", "uvicorn", "main:app", "--app-dir", "backend", "--host", "0.0.0.0", "--port", "8000", "--reload"])

@@ -1,3 +1,27 @@
-Flask
+# Web Framework & Servidor
+fastapi
+uvicorn[standard]
+flask
 flask-cors
+
+# Banco de Dados & ORM
+sqlalchemy
 psycopg2-binary
+alembic
+
+# Autenticação & Segurança (comum em APIs FastAPI)
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+
+# E-mail & Serviços
+sendgrid
+email-validator
+
+# Configuração & Utilitários
+
+python-dotenv
+pydantic
+pydantic-settings
+requests
+httpx
