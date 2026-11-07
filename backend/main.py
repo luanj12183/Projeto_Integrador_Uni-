@@ -45,18 +45,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Comando para encontrar o arquivo .env 
+# Tenta ler o comando .env (se exisitir). Se não existir, usa a string padrão automaticamente.
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(dotenv_path=BASE_DIR / ".env") 
 
+# Lê as variáveis geradas no .env 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY") 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL") 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL") 
 
-if not DATABASE_URL:
-    raise ValueError("A variável DATABASE_URL não foi encontrada no arquivo .env!")
-
-if DATABASE_URL.startswith("postgres://"):
+# Ajuste do prefixo do Postgres se necessário 
+if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
     
 # Conexão direta com o PostgreSQL do Neon 
