@@ -34,13 +34,8 @@ app.mount("/nextpag", StaticFiles(directory=nextpag_path), name="nextpag")
 # Adição do CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-5505.app.github.dev",
-        "http://localhost:5505",
-        "http://127.0.0.1:5505"
-        
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
