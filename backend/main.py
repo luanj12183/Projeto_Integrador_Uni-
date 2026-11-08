@@ -6,11 +6,11 @@ from dotenv import load_dotenv
 from pathlib import Path 
 import os 
 import secrets 
+importy bcrypt 
 from datetime import datetime, timedelta, timezone
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import declarative_base, sessionmaker, Session 
-from passlib.context import CryptContext 
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail 
 import ssl 
@@ -62,15 +62,16 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-pwd_context = CryptContext (schemes=["bcrypt"], deprecated="auto")
-
 def get_password_hash(password: str) -> str:
-    safe_password = password.encode('utf-8')[:72].decode('utf-8', errors='ignore') 
-    return pwd_context.hash(safe_password) 
+    print(">>> PASSOU PELA FUNÇÃO CORRIGIDA! <<<")
+    safe_bytes = password.encode('utf-8')[:72]
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(safe_bytes, salt).decode('utf-8') 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    safe_password = plain_password.encode('utf-8')[:72].decode('utf-8', errors='ignore') 
-    return pwd_context.verify(safe_password, hashed_password) 
+    safe_password = plain_password.encode('utf-8')[:72]
+    hashed_bytes = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(safe_password, hashed_bytes) 
 
 # Modelos do Banco de Dados
 class User(Base):
