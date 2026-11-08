@@ -38,7 +38,7 @@ app.add_middleware(
         "http://localhost:5505",
         "http://127.0.0.1:5505",
     ],
-    allow_origin_regex=r"https://.*\.app\.github\.dev",
+    allow_origin_regex=r"https://.*\.github\.dev",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -63,6 +63,14 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 pwd_context = CryptContext (schemes=["bcrypt"], deprecated="auto")
+
+def get_password_hash(password: str) -> str:
+    safe_password = password.encode('utf-8')[:72].decode('utf-8', errors='ignore') 
+    return pwd_context.hash(safe_password) 
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    safe_password = plain_password.encode('utf-8')[:72].decode('utf-8', errors='ignore') 
+    return pwd_context.verify(safe_password, hashed_password) 
 
 # Modelos do Banco de Dados
 class User(Base):
@@ -146,7 +154,7 @@ def forgot_password(
 
     # ! Se caso o usuário não existir nos testes, cria um automaticamente para facilitar
     if not user:
-        user = User (email=payload.email, password_hash=pwd_context.hash("Senha_inicial_"))
+        user = User (email=payload.email, password_hash=get_password_hash("Senha_inicial_"))
         db.add(user)
         db.commit()
         db.refresh(user)
@@ -178,7 +186,7 @@ def register_user(payload: RegisterRequest, db: Session = Depends(get_db)):
     if user:
         raise HTTPException(status_code=400, detail="Usuário já cadastrado")
         
-    hashed_password = pwd_context.hash(payload.password)
+    hashed_password = get_password_hash(payload.password)
     new_user = User(email=payload.email, password_hash=hashed_password)
         
     db.add(new_user)
@@ -214,7 +222,7 @@ def get_usuario_atual(
 def login(dados: LoginRequest, db: Session = Depends(get_db)):
     usuario = db.query(Usuario).filter(Usuario.email == dados.email).first()
     
-    if not usuario or not pwd_context.verify(dados.password, usuario.password_hash):
+    if not usuario or not verify_password(dados.password, usuario.password_hash):
         raise HTTPException(status_code=401, detail="E-mail ou senha inválidos.")
     
     token_acesso = secrets.token_hex(32)
@@ -246,7 +254,7 @@ def reset_password(payload: ResetPasswordRequest, db: Session = Depends(get_db))
     if not user:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
 
-    user.password_hash = pwd_context.hash(payload.new_password) 
+    user.password_hash = get_password_hash(payload.new_password) 
     token_record.used = True
 
     db.commit()
