@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento - Bloom Beaty</title>
+     <link rel="stylesheet" href="agendamento.css">
+
+</head>
+
+<body>
+
+    <main class="agendamento-container">
+
+        <h1>Agende seu horário</h1>
+
+        <p>
+            Escolha seu serviço e encontre o melhor horário para você. 
+
+        </p>
+
+    <section class="servicos">
+
+    <h2> escolha seu serviço</h2>
+    
+    <div class="servicos-lista">
+
+        <button class="servico" data-servico="Corte de cabelo"> 
+        
+            Corte de cabelo
+
+        </button>
+        <button class="servico" data-servico="Escova">
+           
+            Escova
+
+        </button>
+        <button class="servico" data-servico="Hidratação">
+           
+            Hidratação
+
+        </button>
+        <button class="servico" data-servico="Coloração">
+
+           coloração 
+
+        </button>
+        <button class="servico" data-servico="Manicure">
+            
+            Manicure
+
+        </button>
+        <button class="servico" data-servico="Pedicure">
+
+            Pedicure
+
+        </button>
+
+    </div>
+
+    </section>
+
+    <section class="calendario">
+
+        <h2>Escolha uma data</h2>
+
+        <div class= "calendario-cabecalho">
+
+        <button id= "mesAnterior" type="button">
+
+            &lsaquo;
+
+        </button>
+    
+        <h3 id="mesAno"></h3>
+
+        <button id="proximoMes" type="button">
+
+        &rsaquo;
+
+       </button>
+
+        </div>
+
+        <div class="dias-semana">
+            
+            <span>Dom</span>
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span> 
+
+            </div>
+            
+            <div id="diasCalendario"class="dias-calendario"></div>
+
+            </section>
+
+            <section class="horarios" id="secaoHorarios"> 
+
+                <h2> Escolha um horário</h2>
+
+                <div class="horarios-lista" id="listaHorarios"> 
+
+                </div>
+
+            </section>
+
+            
+
+            <section class="profissionais" id="secaoProfissionais">
+
+                <h2>Escolha um profissional</h2>
+
+                <div class="profissionais-lista">
+                    
+                    <button class="profissional" data-profissional="Ana Souza"> Ana souza
+
+                    </button>
+                       
+
+                    <button class="profissional" data-profissional="Mariana Costa">
+                        Mariana Costa
+
+                    </button>
+
+                      <button class="profissional" data-profissional="Juliana alves">
+                        Juliana Alves
+                        
+                    </button>
+
+                </div>
+
+                <section class="resumo" id="secaoResumo"> 
+                    
+                    <h2>Resumo do agendamento</h2>
+
+                    <div class="resumo-detalhes">
+
+                    <p>Serviço : <span id="resumoServico"></span></p>
+
+                    <p> Data : <span id="resumoData"></span></p>
+
+                    <p> Horário : <span id="resumoHorario"></span></p>
+
+                    <p>Profissional : 
+                <span id="resumoProfissional"></span></p>
+
+                </div>
+
+                <button id="confirmarAgendamento" type="button">
+                    Confirmar Agendamento
+                </button>
+
+                <p id= "mensagemConfirmacao" style="display: none;">Agendamento confirmado com sucesso!
+                </p>
+
+
+                
+                </section>
+                
+                 </main>
+
+            </section>
+
+    <script src="agendamento.js"></script>
+</body>
+</html>
