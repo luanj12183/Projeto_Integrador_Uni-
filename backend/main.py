@@ -31,11 +31,15 @@ nextpag_path.mkdir(parents=True, exist_ok=True)
 app.mount("/Arquivos", StaticFiles(directory=arquivos_path), name="arquivos")
 app.mount("/nextpag", StaticFiles(directory=nextpag_path), name="nextpag")
 
-# Adição do CORS
+# Adição do CORS e configuração universal para toda a equipe 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=[
+        "http://localhost:5505",
+        "http://127.0.0.1:5505",
+    ],
+    allow_origin_regex=r"https://.*\.app\.github\.dev",
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
