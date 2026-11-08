@@ -220,7 +220,7 @@ def login(dados: LoginRequest, db: Session = Depends(get_db)):
     return {
         "access_token": token_acesso,
         "token_type": "bearer",
-        "message": "Login realiado com sucesso!"
+        "message": "Login realizado com sucesso!"
     }
     
 @app.get("/dados-protegidos")
