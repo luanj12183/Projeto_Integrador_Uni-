@@ -9,8 +9,10 @@ if (!token) {
 
 (async function verificarAcesso() {
     try {
-        const resposta = await fetch("https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev/dados-protegidos", {
-            headers: { "Authorization": `Bearer ${token}` }
+            const API_URL = window.location.origin.includes("github.dev") ? window.location.origin.replace("-5505", "-8000") : "http://127.0.0.1:8000";
+
+            const resposta = await fetch(`${API_URL}/dados-protegidos`, {
+                headers: {"Authorization": `Bearer ${token}` }
         });    
 
         if (resposta.ok) {

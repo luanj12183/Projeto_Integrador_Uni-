@@ -98,7 +98,13 @@ def get_db():
 # Função para envio do e-mail via SendGrid (API)
 
 def send_reset_email_sendgrid(to_email: str, token: str) -> bool:
-    reset_url = f"https://redesigned-bassoon-q7wp6grxwvpgf9g4x-5505.app.github.dev/redefinirsenha.html?token={token}"
+    
+    codespace_name = os.getenv("CODESPACE_NAME")
+    reset_url = (
+    f"https://{codespace_name}-5505.app.github.dev/redefinirsenha.html?token={token}"
+    if codespace_name
+    else f"http://127.0.0.1:5505/redefinirsenha.html?token={token}"
+    )
 
     content = f"""
     <h3>Recuperação de Senha</h3>

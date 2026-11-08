@@ -1,4 +1,4 @@
-const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
+const API_URL = window.location.origin.includes("github.dev") ? window.location.origin.replace("-5505", "-8000") : "http://127.0.0.1:8000";
 
 const email = document.getElementById("email");
 const senha = document.getElementById("senha");

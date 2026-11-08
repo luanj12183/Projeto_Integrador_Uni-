@@ -1,5 +1,4 @@
-const API_URL = "https://redesigned-bassoon-q7wp6grxwvpgf9g4x-8000.app.github.dev";
-const token = new URLSearchParams(window.location.search).get("token");
+const API_URL = window.location.origin.includes("github.dev") ? window.location.origin.replace("-5505", "-8000") : "http://127.0.0.1:8000";const token = new URLSearchParams(window.location.search).get("token");
 const senha = document.getElementById("senha");
 const olhoSenha = document.getElementById("olhoSenha");
 const ConfirmarSenha = document.getElementById("ConfirmarSenha");
