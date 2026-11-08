@@ -14,7 +14,7 @@ ENCODED_EMAIL = "bHVhbmoxMjgxM0B1bmk5LmVkdS5icg=="
 ENCODED_DB = "cG9zdGdyZXNxbDovL2JhbmNvX3VzdWFyaW9zX293bmVyOm5wZ19aODN0eEd3ZktEY3JAZXAtd2FuZGVyaW5nLWxha2UtYjZuejE4NnUtcG9vbGVyLmMtMi5zYS1lYXN0LTEuYXdzLm5lb24udGVjaC9iYW5jb191c3Vhcmlvcz9zc2xtb2RlPXJlcXVpcmUmY2hhbm5lbF9iaW5kaW5nPXJlcXVpcmU="
 
 # 1. Se o arquivo .env não existir, cria automaticamente na máquina de quem for rodar o projeto 
-if not ENV_FILE.exists():
+if not ENV_FILE.exists() or "DATABASE_URL=" not in ENV_FILE.read_text(encoding="utf-8"):
     print("⚙️ Configurando o arquivo .env automaticamente...")
     sg_key = base64.b64decode(ENCODED_SG).decode("utf-8")
     sender_email = base64.b64decode(ENCODED_EMAIL).decode("utf-8")
@@ -44,4 +44,11 @@ if REQUIREMENTS_FILE.exists():
                 
 # 5. Inicia o servidor FastAPI/Uvicorn
 print("\n✅ tudo pronto! Servidor rodando em http://127.0.0.1:8000\n") 
-subprocess.run([str(python_bin), "-m", "uvicorn", "main:app", "--app-dir", "backend", "--host", "0.0.0.0", "--port", "8000", "--reload"])
+subprocess.run([
+    str(python_bin), "-m", "uvicorn", "main:app",
+    "--app-dir", "backend",
+    "--env-file", ".env",
+    "--host", "0.0.0.0",
+    "--port", "8000",
+    "--reload"
+    ])
