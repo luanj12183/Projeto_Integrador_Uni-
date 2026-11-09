@@ -86,3 +86,11 @@ window.addEventListener('pageshow', function (event) {
         fazerLogout()
     }
 });
+
+function renovarSessao() {
+    localStorage.setItem("ultimoAcesso", Date.now());
+}
+
+window.addEventListener("click", renovarSessao);
+window.addEventListener("keydown", renovarSessao);
+window.addEventListener("scroll", renovarSessao); 

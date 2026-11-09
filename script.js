@@ -20,7 +20,7 @@ senha.type = "text";
     if (!token) {
         mensagem.textContent = "Link inválido ou sem token!";
         mensagem.className = "mensagem-feedback erro";
-        return; 
+        return;
     }
 
     if (senha.value ==="") {
@@ -41,26 +41,32 @@ if (senha.value===ConfirmarSenha.value){
         if (res.ok) {
             mensagem.textContent = "Senha alterada com sucesso!";
             mensagem.className = "mensagem-feedback sucesso";
-            setTimeout(() => { window.location.href = "index.html"; }, 2000);
-        } else {
-            const msgErro = typeof data.detail === "string" ? data.detail : "Erro ao alterar no servidor.";
-            mensagem.textContent = msgErro;
-            mensagem.className = "mensagem-feedback erro";
+
+        if (data.token) { 
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("ultimoAcesso", Date.now());
         }
+
+        setTimeout(() => {window.location.href = "index.html"; }, 2000);
+
+    } else {
+        mensagem.textContent = data.detail || "Erro ao alterar senha!";
+        mensagem.className = "mensagem-feedback erro";
+    }
     })
-    
+
 .catch(() => {
         mensagem.textContent = "Erro de conexão!";
         mensagem.className = "mensagem-feedback erro";
     });
 
-} else { 
-    mensagem.textContent = "As senhas nao coincidem!";
+  } else {
+    mensagem.textContent = "As senhas não coincidem!";
     mensagem.className = "mensagem-feedback erro";
     ConfirmarSenha.value = "";
+    }
 }
-}
-  });
+});
 
 ConfirmarSenha.addEventListener("input" , function() {
     mensagem.textContent ="";
