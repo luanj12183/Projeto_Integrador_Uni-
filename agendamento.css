@@ -341,7 +341,7 @@ body {
 }
 
 .btn-voltar {
-    display: inline-left;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     color: #6b5b43;
