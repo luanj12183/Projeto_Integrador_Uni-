@@ -338,5 +338,33 @@ body {
             grid-template-columns: repeat(2 ,1fr);
         
     } 
+}
 
+.btn-voltar {
+    display: inline-left;
+    align-items: center;
+    gap: 8px;
+    color: #6b5b43;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background-color: #f5f0eb;
+    border: 1px solid #e5ded7;
+    transition: all 0.2 ease;
+    margin-bottom: 15px;
+}
+
+.btn-voltar svg {
+    transition: transform 0.2s ease;
+}
+
+.btn-voltar:hover {
+    background-color: #e8ded5;
+    color: #3b302a;
+}
+
+.btn-voltar:hover svg {
+    transform: translateX(-4px);
 }
