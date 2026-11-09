@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from pathlib import Path 
 import os 
 import secrets 
-importy bcrypt 
+import bcrypt 
 from datetime import datetime, timedelta, timezone
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean, ForeignKey
