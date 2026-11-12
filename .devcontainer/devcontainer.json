@@ -1,5 +1,6 @@
 {
   "name": "FastAPI Project",
+  "forwardPorts": [8000, 5505], 
   "portsAttributes": {
     "8000": {
       "label": "FastAPI Backend",
