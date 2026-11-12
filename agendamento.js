@@ -240,8 +240,6 @@ botao.addEventListener("click", function() {
 
   const botaoConfirmar = document.getElementById("confirmarAgendamento");
 
-  const mensagemConfirmacao = document.getElementById("mensagemConfirmacao");
-
   botaoConfirmar.addEventListener("click", function() {
 
 
@@ -255,21 +253,23 @@ botao.addEventListener("click", function() {
     alert("por favor, preencha todos os campos!")
 
     return;
-
   }
 
-  mensagemConfirmacao.textContent = "Agendamento confirmado com sucesso!";
-
-  mensagemConfirmacao.style.display = "block";
+  mostrarFeedback("Agendamento confirmado com sucesso!", "sucesso"); 
 
   botaoConfirmar.textContent = "Agendamento confirmado"
-
   botaoConfirmar.disabled = true;
 
 });
 
+function mostrarFeedback(mensagem, tipo) {
+    const feedback = document.getElementById("mensagem-feedback");
+    if (!feedback) return;
 
+    feedback.textContent = mensagem;
+    feedback.className = `mensagem-feedback ${tipo}`;
 
-
-
-
+    setTimeout(() => {
+        feedback.className = "mensagem-feedback";
+    }, 3000);
+}
