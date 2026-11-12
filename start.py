@@ -41,7 +41,7 @@ if not VENV_DIR.exists():
 if REQUIREMENTS_FILE.exists():
     print("Instalando dependências a partir do requirements.txt...")
     subprocess.run([str(pip_bin), "install", "-r", str(REQUIREMENTS_FILE)], check=True)
-                
+
 # 5. Inicia o servidor FastAPI/Uvicorn
 print("\n✅ tudo pronto! Servidor rodando em http://0.0.0.0:8000\n") 
 APP_DIR = BASE_DIR / "backend" if (BASE_DIR / "backend" / "main.py").exists() else BASE_DIR

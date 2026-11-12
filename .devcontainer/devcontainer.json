@@ -4,6 +4,10 @@
     "8000": {
       "label": "FastAPI Backend",
       "visibility": "public"
+    },
+    "5505": {
+      "label": "Live Server",
+      "visibility": "public"
     }
   }
 }
