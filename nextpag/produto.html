@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+<!--Menu Superior-->
+<header class="navbar">
+    <a href="salao.html class" class="Logo-Bloom">
+    <img src="./Arquivos/LOGO.png" class="Logo-Bloom" alt="Logo do salão">
+    </a>
+
+    <nav class="nav-links">
+        <a href="salao.html#sobre">Sobre</a>
+        <a href="salao.html#servicos">Serviços</a>
+        <a href="salao.html">Início</a>
+        <a href="produtos.html" class="active">Produtos</a>
+        <a href="salao.html#faq">FAQ</a>
+    </nav>
+
+    <a href="#" class="btn-sair">
+        <svg class="exit-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+        </svg>
+        <span>Sair</span>
+    </a>
+</header>
+
+<!--Conteúdo Principal: Catálogo de Produtos-->
+<main class="produtos-container">
+    <!--Categoria alinhada à esquerda-->
+    <div class="category-header">
+        <span class="category-subtitle">LINHA EXCLUSIVA DE PRODUTOS DO SALÃO</span>
+        <h1>Produtos</h1>
+    </div>
+
+    <!--Barra de filtros básicos e controles-->
+    <div class="toolbar">
+        <div class="filters-left">
+            <span class="product-count" id="produtoCount">5 Produtos<span>
+
+                <input type="text" id="searchInput" class="filter-search" placeholder="Buscar produto...">
+
+                <select class="filter-select" id="FilterCategory">
+                    <option value="todos">Tipo: Todos</option>
+                    <option value="shampoo">Shampoo</option>
+                    <option value="condicionador">Condicionador</option>
+                    <option value="spraycapilar">Spray Capilar</option>
+                    <option value="serumcapilar">Sérum Capilar</option>
+                    <option value="mascara">Mascára</option>
+                    <option value="kitcompleto">Kit Completo</option>
+                </select>
+
+                <select class="filter-select" id="filterHair">
+                    <option value="todos">Indicação: Todos</option>
+                    <option value="hidratacao">Hidratação</option>
+                    <option value="nutricao">Nutrição</option>
+                    <option value="reconstrucao">Reconstrução</option>
+                    <option value="todos-fios">Todos os fios</option>
+                </select>
+
+                <select class="filter-select" id="FilterPrice">
+                    <option value="todos">Preço: Todos</option>
+                    <option value="ate80">Até R$ 80,00</option>
+                    <option value="80a150">R$ 80,00 a R$ 150,00</option>
+                    <option value="acima150">Acima de R$ 150,00</option>
+                </select>
+
+                <button type="button" class="btn-clear" id="clearFilters">Limpar filtros</button>
+            </div>
+
+            <div class="controls-right">
+                <div class="grid-toggle" title="Alterar visualização">
+                    <button type="button" class="grid-btn active" id="btn4Cols" onclick="setGrid(4)">4</button>
+                    <button type="button" class="grid-btn" id="btn2Cols" onclick="setGrid(2)">2</button>
+                </div>
+
+                <select class="filter-select" id="sortOrder">
+                    <option value="relevancia">Ordenar: Lançamentos</option>
+                    <option value="menor-preco">Menor preço</option>
+                    <option value="maior-preco">Maior preço</option>
+                </select>
+            </div>
+        </div>
+
+<!--Barra de aviso de Pré venda com cadeado inserido-->
+<div class="presale-bar">
+    <svg class="lock-icon" fill="none" view="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />"
+    </svg>
+    <span>Pré-Venda em Breve</span>
+</div> 
+
+<!--Grade dos 5 produtos (Bloqueados para compra)-->
+<section class="products-grid" id="productsGrid">
+<!--Produto 1-->
+
+
+
+</body>
+</html>
