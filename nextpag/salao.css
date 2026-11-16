@@ -842,3 +842,21 @@ section:has(> .product-card) {
   background-color: #3a2d28;
   color: #ffffff;
 }
+
+#clearFilters {
+  background-color: #ffffff;
+  border: 1px solid #e5ddd3;
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-family: inherit;
+  font-size: 0.85rem; 
+  color: #5c4c43;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(58, 45, 40, 0.04);
+  transition: all 0.2s ease;
+}
+
+#clearFilters:hover {
+  border-color: #4a3831;
+  color: #3a2d20;
+}
