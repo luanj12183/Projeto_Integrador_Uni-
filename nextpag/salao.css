@@ -693,3 +693,88 @@ div:has(> .product-card),
 section:has(> .product-card) {
     margin-top: 24px;
 }
+
+/* Contador "5 produtos" */
+.toolbar {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: space-between;
+gap: 12px;
+background: transparent;
+padding: 14px 0;
+border-radius: 0;
+border: none;
+border-bottom: 1px solid #dfd3c3;
+box-shadow: none;
+margin-top: 28px;
+}
+
+/* Campo de busca e caixas de seleção (<select>) */
+.filter-search,
+.filter-select { 
+appearance: none;
+-webkit-appearance: none;
+background-color: transparent;
+border: none;
+border-bottom: 1.5px solid #cbbba8;
+border-radius: 0;
+padding: 8px 4px;
+font-family: inherit;
+font-size: 0.85rem;
+color: #3a2d28;
+outline: none;
+transition: all 0.2s ease;
+}
+
+.filter-search::placeholder {
+    color: #9c8c82;
+}
+
+/* Setinha minimalista customizada nos <select> */
+.filter-select {
+padding-right: 26px;
+cursor: pointer;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235c4b43' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 4px center;
+}
+
+/* Efeito ao passar o mouse e ao clicar */
+.filter-search:hover,
+.filter-select:hover {
+    border-color: #bfa995;
+    background-color: transparent;
+}
+
+.filter-search:focus,
+.filter-select:focus { 
+    border-color: #4a3831;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+/* Botões de visualização de grade (4 e 2 colunas) */
+.grid-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid #e2d6c8;
+    background-color: #faf7f2;
+    color: #5c4b43;
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.grid-btn:hover {
+    border-color: #4a3831;
+    color: #3a2d28;
+}
+
+.grid-btn.active {
+    background-color: #3a2d28;
+    border-color: #3a2d28;
+    color: #ffffff;
+}
