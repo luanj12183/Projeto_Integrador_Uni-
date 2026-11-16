@@ -51,5 +51,5 @@ subprocess.run([
     "--env-file", str(ENV_FILE),
     "--host", "0.0.0.0",
     "--port", "8000",
-    "--reload"
+    #"--reload"
     ])

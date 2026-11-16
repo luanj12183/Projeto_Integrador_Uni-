@@ -586,7 +586,6 @@ nav a.active::after {
 }
 
 .exit-icon {width: 18px; height: 18px; }
-.lock-icon {width: 20px; height: 20px; }
 .lock-icon-sm {width: 15px; height: 15px; }
 .placeholder-icon {width: 42px; height: 42px; stroke: #806953; }
 
@@ -631,17 +630,6 @@ gap: 20px;
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-.presale-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 20px 0;
-    padding: 12px;
-    background-color: rgba(75, 53, 36, 0.08);
-    border-radius: 10px;
 }
 
 .product-card {
@@ -699,4 +687,9 @@ gap: 20px;
     .products-grid.two-cols {
         grid-template-columns: 1fr;
     }
+}
+
+div:has(> .product-card),
+section:has(> .product-card) {
+    margin-top: 24px;
 }
