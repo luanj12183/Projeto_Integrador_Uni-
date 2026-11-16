@@ -77,3 +77,37 @@ function applyFilters() {
     [filterCategory, filterHair, filterPrice].forEach(el => el.addEventListener('change', applyFilters));
     searchInput.addEventListener('input', applyFilters);
     sortOrder.addEventListener('change', sortProducts);
+
+    document.querySelectorAll('select.filter-select').forEach(sel => {
+        sel.hidden = true;
+        const wrap = document.createElement('div');
+        wrap.className = 'custom-select';
+        wrap.innerHTML = `<button type="button" class="custom-select-trigger">${sel.selectedOptions[0].text}</button>
+            <div class="custom-select-menu">${[...sel.options].map((o, i) => `<div class="custom-select-option ${i === sel.selectedIndex ? 'selected' : ''}" data-val="${o.value}">${o.text}</div>`).join('')}</div>`;
+
+        const btn = wrap.firstElementChild;
+        btn.onclick = e => {
+            e.stopPropagation();
+            document.querySelectorAll('.custom-select.open').forEach(el => el !== wrap && el.classList.remove('open'));
+            wrap.classList.toggle('open');
+        };
+        wrap.querySelectorAll('.custom-select-option').forEach(item => item.onclick = () => {
+            sel.value = item.dataset.val; 
+            btn.textContent = item.textContent;
+            wrap.querySelector('.selected')?.classList.remove('selected');
+            item.classList.add('selected');
+            wrap.classList.remove('open');
+            sel.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+        sel.after(wrap);
+    });
+
+    document.addEventListener('click', () => document.querySelectorAll('.custom-select.open').forEach(el => el.classList.remove('open')));
+
+        document.getElementById('clearFilters')?.addEventListener('click', () => setTimeout(() => {
+            document.querySelectorAll('.custom-select').forEach(w => {
+                const sel = w.previousElementSibling;
+                w.firstElementChild.textContent =sel.selectedOptions[0].text;
+                w.querySelectorAll('.custom-select-option').forEach((el, i) => el.classList.toggle('selected', i === sel.selectedIndex));
+            });
+        }, 0));
