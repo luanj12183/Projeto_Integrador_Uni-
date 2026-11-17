@@ -648,6 +648,7 @@ nav a.active::after {
 .product-card {
   display: flex;
   flex-direction: column;
+  height: 100%;
   background-color: rgba(255, 250, 244, 0.9);
   border-radius: 14px;
   overflow: hidden;
@@ -859,4 +860,42 @@ section:has(> .product-card) {
 #clearFilters:hover {
   border-color: #4a3831;
   color: #3a2d20;
+}
+
+.product-image-placeholder {
+  position: relative;
+  width: 100%;
+  height: auto !important;
+  max-height: none !important;
+  aspect-ratio: 1/1 !important;
+  overflow: hidden;
+}
+
+.product-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  display: block;
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-status-locked {
+  margin-top: auto;
+}
+
+/* Regra única para todos os produtos no modo 2 colunas */
+#productsGrid.two-cols .product-image-placeholder,
+.products-grid.two-cols .product-image-placeholder {
+  aspect-ratio:  5 / 4 !important;
+}
+
+#productsGrid.two-cols .product-image-placeholder img,
+.products-grid.two-cols .product-image-placeholder img {
+  object-position: center 20%;
 }
