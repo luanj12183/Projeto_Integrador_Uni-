@@ -43,13 +43,13 @@ if REQUIREMENTS_FILE.exists():
     subprocess.run([str(pip_bin), "install", "-r", str(REQUIREMENTS_FILE)], check=True)
 
 # 5. Inicia o servidor FastAPI/Uvicorn
-print("\n✅ tudo pronto! Servidor rodando em http://0.0.0.0:8000\n") 
+print("\n✅ tudo pronto! Servidor rodando em http://127.0.0.1:8000\n") 
 APP_DIR = BASE_DIR / "backend" if (BASE_DIR / "backend" / "main.py").exists() else BASE_DIR
 subprocess.run([
     str(python_bin), "-m", "uvicorn", "main:app",
     "--app-dir", str(APP_DIR), 
     "--env-file", str(ENV_FILE),
-    "--host", "0.0.0.0",
+    "--host", "127.0.0.1",
     "--port", "8000",
     #"--reload"
     ])
