@@ -902,11 +902,12 @@ section:has(> .product-card) {
 
 #sugeridos {
   padding: 60px 0;
-  width: 92% !important;
-  max-width: 1200px !important;
+  width: 95% !important;
+  max-width: none !important;
   margin: 0 auto !important;
 }
 
 #sugeridos .products-grid {
   grid-template-columns: repeat(3, 1fr);
+  max-width: 900px;
 }
