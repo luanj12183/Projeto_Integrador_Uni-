@@ -899,3 +899,14 @@ section:has(> .product-card) {
 .products-grid.two-cols .product-image-placeholder img {
   object-position: center 20%;
 }
+
+#sugeridos {
+  padding: 60px 0;
+  width: 92% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+#sugeridos .products-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
