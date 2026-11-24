@@ -16,7 +16,7 @@ from sendgrid.helpers.mail import Mail
 import ssl 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-# Instância da API 
+
 app = FastAPI(title="API - Recuperação de Senha")
 
 BASE_DIR = Path(__file__).resolve().parent 
@@ -27,11 +27,9 @@ nextpag_path = BASE_DIR / "nextpag"
 arquivos_path.mkdir(parents=True, exist_ok=True)
 nextpag_path.mkdir(parents=True, exist_ok=True) 
 
-# Libera o acesso às pastas para o navegador carregar as imagens
 app.mount("/Arquivos", StaticFiles(directory=arquivos_path), name="arquivos")
 app.mount("/nextpag", StaticFiles(directory=nextpag_path), name="nextpag")
 
-# Adição do CORS e configuração universal para toda a equipe 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -44,20 +42,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Tenta ler o comando .env (se exisitir). Se não existir, usa a string padrão automaticamente.
 BASE_DIR = Path(__file__).resolve().parent
 load_dotenv(dotenv_path=BASE_DIR / ".env") 
 
-# Lê as variáveis geradas no .env 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY") 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL") 
 DATABASE_URL = os.getenv("DATABASE_URL") 
 
-# Ajuste do prefixo do Postgres se necessário 
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
     
-# Conexão direta com o PostgreSQL do Neon 
 engine = create_engine(
     DATABASE_URL,
     pool_pre_ping=True,
@@ -69,7 +63,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def get_password_hash(password: str) -> str:
-    print(">>> PASSOU PELA FUNÇÃO CORRIGIDA! <<<")
     safe_bytes = password.encode('utf-8')[:72]
     salt = bcrypt.gensalt()
     return bcrypt.hashpw(safe_bytes, salt).decode('utf-8') 
@@ -79,7 +72,6 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     hashed_bytes = hashed_password.encode('utf-8')
     return bcrypt.checkpw(safe_password, hashed_bytes) 
 
-# Modelos do Banco de Dados
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
@@ -97,7 +89,6 @@ class PasswordResetToken(Base):
     expires_at = Column(DateTime, nullable=False)
     used = Column(Boolean, default=False)
 
-# Cria as tabelas de forma automática, caso nenhuma delas existir
 Base.metadata.create_all(bind=engine)
 
 class ForgotPasswordRequest(BaseModel):
