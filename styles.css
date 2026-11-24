@@ -24,9 +24,8 @@ body{
 .container h1{
     text-align: center;
     margin-bottom: 20px;
-    font-size: 30px
-     color #6f5543
-
+    font-size: 30px;
+    color: #6f5543;
 }
 h1{
   color:#746153
@@ -97,10 +96,7 @@ button:hover{
     color:#6f5543;
     text-decoration: underline;
 }
-    .input-box input:focus{
- border-color:#6F5543;
-    outline: none;
-}
+
 .input-box input:focus{
     border-color:#6F5543;
     outline: none;
@@ -196,13 +192,6 @@ button:hover{
     color: #725a48;
     text-decoration: underline;
 }
-google-login {
-    margin-top: 15px;
-}
-.google-login button {
-    margin-top: 10px;
-}
-
 .Logo-Bloom,
 .logo img {
     display: block;
@@ -210,14 +199,6 @@ google-login {
     max-width: 280px;
     height: auto!important;
     margin: 0 auto !important;
-}
-
-.google-login {
-    margin-top: 15px;
-}
-
-.google-login button {
-    margin-top: 10px;
 }
 
 .logo {
