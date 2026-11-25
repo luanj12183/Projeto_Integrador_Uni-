@@ -259,6 +259,12 @@ botaoConfirmar.addEventListener("click", async function () {
     return;
   }
 
+const clienteNome = document.getElementById("clienteNome").value.trim();
+if (!clienteNome) {
+  alert("Por favor, digite seu nome!");
+  return;
+}
+
   const anoFormatado = dataSelecionada.getFullYear();
   const mesFormatado = String(dataSelecionada.getMonth() + 1).padStart(2, "0");
   const diaFormatado = String(dataSelecionada.getDate()).padStart(2, "0");
@@ -269,6 +275,7 @@ botaoConfirmar.addEventListener("click", async function () {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
+            cliente_nome: clienteNome,
             servico_id: servicoSelecionado.id,
             funcionario_id: profissionalSelecionado.id,
             data: dataISO,
