@@ -16,8 +16,11 @@ from sendgrid.helpers.mail import Mail
 import ssl 
 ssl._create_default_https_context = ssl._create_unverified_context
 
+from fastapi import FastAPI 
+from agendamento import router as agendamento_router
 
 app = FastAPI(title="API - Recuperação de Senha")
+app.include_router(agendamento_router)
 
 BASE_DIR = Path(__file__).resolve().parent 
 
@@ -105,8 +108,6 @@ def get_db():
     finally:
             db.close()
 
-# Função para envio do e-mail via SendGrid (API)
-
 def send_reset_email_sendgrid(to_email: str, token: str) -> bool:
     
     codespace_name = os.getenv("CODESPACE_NAME")
@@ -133,13 +134,8 @@ def send_reset_email_sendgrid(to_email: str, token: str) -> bool:
     try:
         sg = SendGridAPIClient(SENDGRID_API_KEY)
         response = sg.send(message)
-        print(f">>> E-MAIL ENVIADO COM SUCESSO! Status: {response.status_code}")
         return True
-    except Exception as e:
-        if hasattr(e, 'body'):
-            print(f"ERRO DETALHADO SENDGRID: {e.body.decode('utf-8')}")
-        else:
-            print(f">>> ERRO AO ENVIAR PELO SENDGRID: {e}")
+    except Exception: 
         return False
 
 @app.post("/auth/forgot-password", status_code=status.HTTP_200_OK)
@@ -148,17 +144,15 @@ def forgot_password(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db) 
 ):
-    user = db.query(User).filter(User.email == payload.email) .first()
+    user = db.query(User).filter(User.email == payload.email).first()
 
-    # ! Se caso o usuário não existir nos testes, cria um automaticamente para facilitar
     if not user:
-        user = User (email=payload.email, password_hash=get_password_hash("Senha_inicial_"))
+        user = User(email=payload.email, password_hash=get_password_hash("Senha_inicial_"))
         db.add(user)
         db.commit()
         db.refresh(user)
 
     token = secrets.token_hex(32)
-    print(">>> TOKEN GERADO:", token)
     expiration = datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(minutes=20) 
 
     db_token = PasswordResetToken(
@@ -171,7 +165,7 @@ def forgot_password(
 
     background_tasks.add_task(send_reset_email_sendgrid, user.email, token)
 
-    return {"message": "Se o e-mail estiver cadastrado, a mensagem será enviado ao destino..."}
+    return {"message": "Se o e-mail estiver cadastrado, a mensagem será enviada ao destino."}
 
 class RegisterRequest(BaseModel):
     email: EmailStr
@@ -193,7 +187,6 @@ def register_user(payload: RegisterRequest, db: Session = Depends(get_db)):
         
     return {"message": "Usuário registrado com sucesso!"}
 
-# Criação da estrutura para aceitar o email e a senha do JSON 
 class LoginRequest(BaseModel): 
     email: EmailStr
     password: str 
@@ -204,7 +197,6 @@ def get_usuario_atual(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ):
-            
     token = credentials.credentials
     usuario = db.query(Usuario).filter(Usuario.token_sessao == token).first()
             
@@ -215,7 +207,7 @@ def get_usuario_atual(
             headers={"WWW-Authenticate": "Bearer"},
         )
     return usuario
-                          
+        
 @app.post("/auth/login")
 def login(dados: LoginRequest, db: Session = Depends(get_db)):
     usuario = db.query(Usuario).filter(Usuario.email == dados.email).first()
