@@ -1,27 +1,72 @@
-const botoesServicos = document.querySelectorAll(".servico");
+const API_URL = "http://127.0.0.1:8000";
 
-let servicoSelecionado = "";
+const listaServicos = document.querySelector(".servicos-lista");
+let servicoSelecionado = null;
 
-botoesServicos.forEach(function(botao) {
+fetch(`${API_URL}/servicos`)
+    .then(function(resposta) {
+        return resposta.json();
+    })
+    .then(function(servicos) { 
+        servicos.forEach(function(servico) {
+            const botao = document.createElement("button");
+            botao.type = "button";
+            botao.classList.add("servico");
+            botao.textContent = servico.nome;
 
-    botao.addEventListener("click", function() {
+            botao.addEventListener("click", function () {
+                const botoesServicos = document.querySelectorAll(".servico");
+                botoesServicos.forEach(function(item) {
+                    item.classList.remove("selecionado");
+                });
 
-        botoesServicos.forEach(function(item) {
-            item.classList.remove("selecionado");
-  });
-
-  botao.classList.add("selecionado");
-
-  servicoSelecionado = botao.dataset.servico;
-
-  console.log("Serviço escolhido:", servicoSelecionado);
-
-   atualizarResumo();
-
-
+                botao.classList.add("selecionado");
+                servicoSelecionado = {id: servico.id, nome: servico.nome}; 
+                atualizarResumo();
+            });
+        
+            listaServicos.appendChild(botao);
+        });
     });
 
-});
+const listaProfissionais = document.querySelector(".profissionais-lista");
+let profissionalSelecionado = null;
+
+fetch(`${API_URL}/funcionarios`)
+    .then(function(resposta) {
+        return resposta.json();
+    })
+
+    .then(function(funcionarios) {
+        funcionarios.forEach(function(profissional) {
+            const botao = document.createElement("button");
+            botao.type = "button";
+            botao.classList.add("profissional");
+            botao.textContent = profissional.nome;
+
+            botao.addEventListener("click", function () {
+                const botoesProfissionais = document.querySelectorAll(".profissional");
+                botoesProfissionais.forEach(function(item) {
+                    item.classList.remove("selecionado");
+                });
+
+                botao.classList.add("selecionado");
+                profissionalSelecionado = {id: profissional.id, nome: profissional.nome };
+                horarioSelecionado = "";
+
+                console.log("Profissional escolhido:", profissionalSelecionado);
+
+                if (dataSelecionada) {
+                    secaoHorarios.style.display = "block";
+                    gerarHorarios();
+                }
+
+                atualizarResumo();
+            });
+
+            listaProfissionais.appendChild(botao);
+        });
+    });
 
 const mesAno = document.getElementById("mesAno");
 
@@ -44,232 +89,219 @@ const secaoHorarios = document.getElementById("secaoHorarios");
 
 secaoHorarios.style.display = "none";
 
- function gerarHorarios() {
+async function gerarHorarios() {
+if (!dataSelecionada || !profissionalSelecionado) {
+    return;
+  }
 
-    const horarios = [
+  const anoFormatado = dataSelecionada.getFullYear();
+  const mesformatado = String(dataSelecionada.getMonth() +1).padStart(2, "0");
+  const diaformatado = String(dataSelecionada.getDate()).padStart(2, "0");
+  const dataISO = `${anoFormatado}-${mesformatado}-${diaformatado}`;
 
-        "08:00",
-        "09:00",
-        "10:00",
-        "11:00",
-        "13:00",
-        "14:00",
-        "15:00",
-        "16:00",
-    ];
+  listaHorarios.innerHTML = "";
+  const resposta = await fetch(
+    `${API_URL}/horarios-disponiveis?data=${dataISO}&funcionario_id=${profissionalSelecionado.id}`
+);
+const dados = await resposta.json();
+const horarios = dados.horarios_disponiveis || [];
 
-    listaHorarios.innerHTML = "";
+if (horarios.length === 0) {
+    listaHorarios.innerHTML = "<p>Nenhum horário disponível para este profissional nesta data.</p>";
+    return;
+}
 
-    horarios.forEach(function(horario) {
-   const botao = document.createElement("button");
+  horarios.forEach(function (horario) {
+    const botao = document.createElement("button");
 
-        botao.type = "button";
-        botao.textContent = horario;
-        botao.classList.add("horario");
+    botao.type = "button";
+    botao.textContent = horario;
+    botao.classList.add("horario");
 
-        botao.addEventListener("click", function() {
-            
-            const botoesHorarios = listaHorarios.querySelectorAll(".horario");
-            
-            botoesHorarios.forEach(function(item) {
-                item.classList.remove("selecionado");
-            });
+    botao.addEventListener("click", function () {
+      const botoesHorarios = listaHorarios.querySelectorAll(".horario");
 
-            botao.classList.add("selecionado");
+      botoesHorarios.forEach(function (item) {
+        item.classList.remove("selecionado");
+      });
 
-            horarioSelecionado = horario;
+      botao.classList.add("selecionado");
 
-            console.log("Horário escolhido:",horarioSelecionado);
+      horarioSelecionado = horario;
 
-            atualizarResumo();
-        });
+      console.log("Horário escolhido:", horarioSelecionado);
 
-        listaHorarios.appendChild(botao);
+      atualizarResumo();
     });
 
- }
+    listaHorarios.appendChild(botao);
+  });
+}
 
 function gerarCalendario() {
-    
-    const primeiroDia = new Date(ano, mes, 1).getDay();
+  const primeiroDia = new Date(ano, mes, 1).getDay();
 
-    
-    const ultimoDia = new Date(ano, mes + 1, 0).getDate();
+  const ultimoDia = new Date(ano, mes + 1, 0).getDate();
 
+  const nomeMes = new Date(ano, mes).toLocaleDateString("pt-BR", {
+    month: "long",
+  });
 
-    const nomeMes = new Date(ano, mes).toLocaleDateString("pt-BR", {
+  mesAno.textContent = `${nomeMes} de ${ano}`;
 
-        month: "long" 
+  diasCalendario.innerHTML = "";
+
+  for (let i = 0; i < primeiroDia; i++) {
+    const espaco = document.createElement("span");
+
+    diasCalendario.appendChild(espaco);
+  }
+
+  for (let dia = 1; dia <= ultimoDia; dia++) {
+    const botao = document.createElement("button");
+
+    botao.type = "button";
+    botao.textContent = dia;
+
+    botao.addEventListener("click", function () {
+        if (!profissionalSelecionado) {
+            alert("Por favor, escolha um profissional primeiro!");
+            return;
+        }
+
+        dataSelecionada = new Date(ano, mes, dia);
+
+      const botoesDias = diasCalendario.querySelectorAll("button");
+
+      botoesDias.forEach(function (item) {
+        item.classList.remove("dia-selecionado");
+      });
+      botao.classList.add("dia-selecionado");
+
+      horarioSelecionado = "";
+
+      secaoHorarios.style.display = "block";
+      gerarHorarios();
+
+      atualizarResumo();
+
+      console.log("Data escolhida:", dataSelecionada);
     });
 
-
-    mesAno.textContent = `${nomeMes} de ${ano}`;
-
-    diasCalendario.innerHTML = ""; 
-
-    for (let i = 0; i < primeiroDia; i++) {
-
-        const espaco = document.createElement("span");
-
-        diasCalendario.appendChild(espaco)
-
-    }
-    
-    for (let dia = 1; dia <= ultimoDia; dia++) {
-
-        const botao = document.createElement("button");
-
-        botao.type = "button";
-        botao.textContent = dia;
-
-        botao.addEventListener("click", function() {
-
-            dataSelecionada = new Date(ano, mes, dia);
-
-            const botoesDias = diasCalendario.querySelectorAll("button");
-            
-            botoesDias.forEach(function(item) {
-                item.classList.remove("dia-selecionado");
-            });
-            botao.classList.add("dia-selecionado");
-
-            horarioSelecionado = "";
-
-            secaoHorarios.style.display = "block";
-            gerarHorarios();
-
-            atualizarResumo();
-
-            console.log("Data escolhida:", dataSelecionada);
-
-        });
-        
-
-        diasCalendario.appendChild(botao);
-    }
-    
+    diasCalendario.appendChild(botao);
+  }
 }
-mesAnterior.addEventListener("click", function() {
+mesAnterior.addEventListener("click", function () {
+  mes--;
 
-    mes--;
+  if (mes < 0) {
+    mes = 11;
+    ano--;
+  }
 
-    if (mes <  0) {
-        mes = 11;
-        ano--;
-    }
-    
-    gerarCalendario();
-
-});
- 
-
-proximomes.addEventListener("click", function ()  {
-
-    mes++;
-
-    if (mes > 11) {
-      mes = 0; 
-      ano++;
-
-    }
-
-    gerarCalendario();
-
+  gerarCalendario();
 });
 
- gerarCalendario();
+proximomes.addEventListener("click", function () {
+  mes++;
 
- const botoesProfissionais = document.querySelectorAll(".profissional");
+  if (mes > 11) {
+    mes = 0;
+    ano++;
+  }
 
- let profissionalSelecionado = "";
+  gerarCalendario();
+});
 
- botoesProfissionais.forEach(function(botao) {
+gerarCalendario();
 
-botao.addEventListener("click", function() {
+const resumoServico = document.getElementById("resumoServico");
+const resumoData = document.getElementById("resumoData");
+const resumoHorario = document.getElementById("resumoHorario");
+const resumoProfissional = document.getElementById("resumoProfissional");
 
-    botoesProfissionais.forEach(function(item) {
-        item.classList.remove("selecionado");
-    });
+const secaoResumo = document.getElementById("secaoResumo");
 
-    botao.classList.add("selecionado");
+secaoResumo.style.display = "none";
 
-    profissionalSelecionado = botao.dataset.profissional;
-
-    console.log("profissional escolhido:", profissionalSelecionado);
-    atualizarResumo();
- });
-
-
- });
-
-  const resumoServico = document.getElementById("resumoServico");
-  const resumoData = document.getElementById("resumoData");
-  const resumoHorario = document.getElementById("resumoHorario");
-  const resumoProfissional = document.getElementById("resumoProfissional");
-
-  const secaoResumo = document.getElementById("secaoResumo");
-
-  secaoResumo.style.display = "none";
-
-  function atualizarResumo() {
-
-    if  (
+function atualizarResumo() {
+  if (
     servicoSelecionado &&
     dataSelecionada &&
     horarioSelecionado &&
     profissionalSelecionado
-    ) {
- 
-   resumoServico.textContent = servicoSelecionado;
+  ) {
+    resumoServico.textContent = servicoSelecionado ? servicoSelecionado.nome : "Não selecionado";
 
-   resumoData.textContent = dataSelecionada.toLocaleDateString("pt-BR");
+    resumoData.textContent = dataSelecionada.toLocaleDateString("pt-BR");
 
-   resumoHorario.textContent = horarioSelecionado;
+    resumoHorario.textContent = horarioSelecionado;
 
-   resumoProfissional.textContent = profissionalSelecionado;
+    resumoProfissional.textContent = profissionalSelecionado ? profissionalSelecionado.nome : "Não selecionado";
 
-   secaoResumo.style.display = "block";
-
-} else {
-
+    secaoResumo.style.display = "block";
+  } else {
     secaoResumo.style.display = "none";
-
-}
-  
   }
+}
 
-  const botaoConfirmar = document.getElementById("confirmarAgendamento");
+const botaoConfirmar = document.getElementById("confirmarAgendamento");
 
-  botaoConfirmar.addEventListener("click", function() {
-
-
+botaoConfirmar.addEventListener("click", async function () {
   if (
-
-    ! servicoSelecionado ||
-    ! dataSelecionada ||
-    ! horarioSelecionado ||
-    !profissionalSelecionado 
- ) {
-    alert("por favor, preencha todos os campos!")
+    !servicoSelecionado ||
+    !dataSelecionada ||
+    !horarioSelecionado ||
+    !profissionalSelecionado
+  ) {
+    alert("por favor, preencha todos os campos!");
 
     return;
   }
 
-  mostrarFeedback("Agendamento confirmado com sucesso!", "sucesso"); 
+  const anoFormatado = dataSelecionada.getFullYear();
+  const mesFormatado = String(dataSelecionada.getMonth() + 1).padStart(2, "0");
+  const diaFormatado = String(dataSelecionada.getDate()).padStart(2, "0");
+  const dataISO = `${anoFormatado}-${mesFormatado}-${diaFormatado}`;
 
-  botaoConfirmar.textContent = "Agendamento confirmado"
+  try  {
+    const resposta = await fetch (`${API_URL}/agendar`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            servico_id: servicoSelecionado.id,
+            funcionario_id: profissionalSelecionado.id,
+            data: dataISO,
+            horario: horarioSelecionado,
+        }),
+    });
+
+    const dados = await resposta.json();
+
+    if(!resposta.ok) {
+        mostrarFeedback(dados.detail || "Erro ao confirmar agendamento.", "erro");
+        return;
+    }
+
+  mostrarFeedback("Agendamento confirmado com sucesso!", "sucesso");
+
+  botaoConfirmar.textContent = "Agendamento confirmado";
   botaoConfirmar.disabled = true;
 
+  } catch (erro) {
+    console.error("Erro na requisição", erro);
+    mostrarFeedback("Erro ao conectar com o servidor.", "erro");
+  }
 });
 
 function mostrarFeedback(mensagem, tipo) {
-    const feedback = document.getElementById("mensagem-feedback");
-    if (!feedback) return;
+  const feedback = document.getElementById("mensagem-feedback");
+  if (!feedback) return;
 
-    feedback.textContent = mensagem;
-    feedback.className = `mensagem-feedback ${tipo}`;
+  feedback.textContent = mensagem;
+  feedback.className = `mensagem-feedback ${tipo}`;
 
-    setTimeout(() => {
-        feedback.className = "mensagem-feedback";
-    }, 3000);
+  setTimeout(() => {
+    feedback.className = "mensagem-feedback";
+  }, 3000);
 }
