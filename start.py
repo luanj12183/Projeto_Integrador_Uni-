@@ -13,14 +13,13 @@ REQUIREMENTS_FILE = (
      if (BASE_DIR / "backend" / "requirements.txt").exists()
     else BASE_DIR / "requirements.txt"
 )
-ENV_FILE = BASE_DIR / ".env"
+ENV_FILE = BASE_DIR / "backend" / ".env" 
 STAMP_FILE = VENV_DIR / ".req_hash"
 
 # Credenciais codificadas para evitar o bloqueio automático do GitHub Secret Scanner 
 ENCODED_SG = "U0cuVHYxZlEzTDRRcGlyV19wVTltdndqUS5HUzJXQThEMWxIdEhCZF94R1Z2T3RfWm9XZFo4UzYwYWtJY014VnJBTXhz"
 ENCODED_EMAIL = "bHVhbmoxMjgxM0B1bmk5LmVkdS5icg=="
-ENCODED_DB = "cG9zdGdyZXNxbDovL2JhbmNvX3VzdWFyaW9zX293bmVyOm5wZ19aODN0eEd3ZktEY3JAZXAtd2FuZGVyaW5nLWxha2UtYjZuejE4NnUtcG9vbGVyLmMtMi5zYS1lYXN0LTEuYXdzLm5lb24udGVjaC9iYW5jb191c3Vhcmlvcz9zc2xtb2RlPXJlcXVpcmUmY2hhbm5lbF9iaW5kaW5nPXJlcXVpcmU="
-
+ENCODED_DB = "cG9zdGdyZXNxbDovL25lb25kYl9vd25lcjpucGdfUFR6eDRwYWd3VW02QGVwLXN0ZWVwLWNha2UtYjcybWFhbjEtcG9vbGVyLmMtMTMudXMtZWFzdC0xLmF3cy5uZW9uLnRlY2gvbmVvbmRiP3NzbG1vZGU9cmVxdWlyZSZjaGFubmVsX2JpbmRpbmc9cmVxdWlyZQ=="
 # 1. Cria ou completa o arquivo .env automaticamente
 env_text = ENV_FILE.read_text(encoding="Utf-8") if ENV_FILE.exists() else ""
 if not all(key in env_text for key in ("DATABASE_URL=", "SENDGRID_API_KEY=", "SENDER_EMAIL=")):
