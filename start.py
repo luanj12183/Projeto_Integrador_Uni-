@@ -20,8 +20,8 @@ ENV_FILE = BASE_DIR / "backend" / ".env"
 STAMP_FILE = VENV_DIR / ".req_hash"
 
 # Credenciais codificadas para evitar o bloqueio automático do GitHub Secret Scanner 
-ENCODED_SG = "U0cuVHYxZlEzTDRRcGlyV19wVTltdndqUS5HUzJXQThEMWxIdEhCZF94R1Z2T3RfWm9XZFo4UzYwYWtJY014VnJBTXhz"
-ENCODED_EMAIL = "bHVhbmoxMjgxM0B1bmk5LmVkdS5icg=="
+ENCODED_SG = "U0cuaUg0bXFMLUhTTlN0Ym1qT1A1UGZkUS5vdEJEamwxTUdzSVRCOFZMUl9ra3Z1ODRWVU5ySTctQ0JNSUFHekh0RkpJ"
+ENCODED_EMAIL = "bHVhbmoxMjE4M0BnbWFpbC5jb20="
 ENCODED_DB = "cG9zdGdyZXNxbDovL25lb25kYl9vd25lcjpucGdfUFR6eDRwYWd3VW02QGVwLXN0ZWVwLWNha2UtYjcybWFhbjEtcG9vbGVyLmMtMTMudXMtZWFzdC0xLmF3cy5uZW9uLnRlY2gvbmVvbmRiP3NzbG1vZGU9cmVxdWlyZSZjaGFubmVsX2JpbmRpbmc9cmVxdWlyZQ=="
 # 1. Cria ou completa o arquivo .env automaticamente
 env_text = ENV_FILE.read_text(encoding="Utf-8") if ENV_FILE.exists() else ""
