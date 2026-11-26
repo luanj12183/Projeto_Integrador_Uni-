@@ -1,9 +1,11 @@
 import base64
-import hashlib 
+import hashlib
 import os
+import socket
 import subprocess
 import sys
 import threading
+import time
 import webbrowser
 from pathlib import Path
 
@@ -59,6 +61,20 @@ cert_path = subprocess.check_output(
 ).strip()
 env = os.environ.copy()
 env["SSL_CERT_FILE"] = cert_path
+
+def abrir_quando_pronto(url: str, host: str = "127.0.0.1", port: int = 8000):
+    for tentativa in range(60): # aguarda até 30 segundos a API subir
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                if s.connect_ex((host, port)) == 0:
+                    webbrowser.open(url)
+                    return
+            time.sleep(0.5)
+
+threading.Thread(
+    target=abrir_quando_pronto,
+    args=("http://127.0.0.1:8000/docs",),
+    daemon=True,
+).start()
 
 APP_DIR = BASE_DIR / "backend" if (BASE_DIR / "backend" / "main.py").exists() else BASE_DIR
 subprocess.run([
