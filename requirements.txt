@@ -25,3 +25,4 @@ pydantic
 pydantic-settings
 requests
 httpx
+certifi

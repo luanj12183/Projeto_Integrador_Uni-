@@ -1,5 +1,6 @@
 import base64
 import hashlib 
+import os
 import subprocess
 import sys
 import threading
@@ -52,9 +53,12 @@ if REQUIREMENTS_FILE.exists():
         STAMP_FILE.write_text(req_hash, encoding="utf-8")
 
 # 5. Abre o navegador direto no Swagger UI e inicia o servidor
-URL_DOCS = "http://127.0.0.1:8000/docs"
-print(f"\n✅ Tudo pronto! Abrindo {URL_DOCS} no navegador...\n")
-threading.Timer(1.5, lambda: webbrowser.open(URL_DOCS)).start()
+cert_path = subprocess.check_output(
+    [str(python_bin), "-c", "import certifi; print(certifi.where())"],
+    text=True,
+).strip()
+env = os.environ.copy()
+env["SSL_CERT_FILE"] = cert_path
 
 APP_DIR = BASE_DIR / "backend" if (BASE_DIR / "backend" / "main.py").exists() else BASE_DIR
 subprocess.run([
@@ -63,4 +67,4 @@ subprocess.run([
     "--env-file", str(ENV_FILE),
     "--host", "127.0.0.1",
     "--port", "8000",
-])
+], env=env)
