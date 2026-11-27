@@ -1,23 +1,23 @@
 import os
-from datetime import datetime, timedelta 
+from datetime import datetime, timedelta
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from fastapi import APIRouter, HTTPException
+
 from pydantic import BaseModel
 
 router = APIRouter()
 
-# Configuração da URL de conexão (substitua a senha de teste se for rodar localmente)
-DATABASE_AGENDAMENTO_URL = os.environ.get( 
-    "DATABASE_AGENDAMENTO_URL", 
+DATABASE_AGENDAMENTO_URL = os.environ.get(
+    "DATABASE_AGENDAMENTO_URL",
     "postgresql://neondb_owner:npg_dj9lmUShAGJ8@ep-twilight-leaf-b5163efn-pooler.c-7.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 )
 
 def get_bancoDeDados():
     """Abre conexão com o PostgreSQL na Neon."""
-    return psycopg2.connect(DATABASE_AGENDAMENTO_URL, cursor_factory=RealDictCursor) 
+    return psycopg2.connect(DATABASE_AGENDAMENTO_URL, cursor_factory=RealDictCursor)
 
-def init_bancodeDados(): 
+def init_bancoDeDados():
     """Cria as tabelas no banco de dados com segurança (apenas se não existirem)."""
     conexao = get_bancoDeDados()
     cursor = conexao.cursor()
@@ -29,7 +29,7 @@ def init_bancodeDados():
             horario_inicio VARCHAR(5) DEFAULT '08:00',
             horario_fim VARCHAR(5) DEFAULT '17:00'
         );
-    ''') 
+    ''')
     
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS servicos (
@@ -55,8 +55,7 @@ def init_bancodeDados():
     cursor.close()
     conexao.close()
 
-# Inicializa o banco ao rodar o arquivo
-init_bancodeDados()
+init_bancoDeDados()
 
 def gerar_horarios(inicio_str, fim_str, intervalo_minutos=30):
     """Gera a lista de horários com base no expediente de cada funcionário."""
@@ -72,14 +71,12 @@ def gerar_horarios(inicio_str, fim_str, intervalo_minutos=30):
         
     return horarios
 
-class CriarAgendamento(BaseModel): 
+class CriarAgendamento(BaseModel):
     cliente_nome: str
-    funcionario_id: int 
+    funcionario_id: int
     servico_id: int
     data: str
     horario: str
-
-# --- 1. CONSULTA DE DADOS BÁSICOS ---
 
 @router.get('/servicos')
 def listar_servicos():
@@ -93,22 +90,22 @@ def listar_servicos():
     return servicos
 
 
-@router.get('/funcionarios') 
+@router.get('/funcionarios')
 def listar_funcionarios():
     """Retorna os funcionários cadastrados."""
     conexao = get_bancoDeDados()
     cursor = conexao.cursor()
     cursor.execute("SELECT id, nome, horario_inicio, horario_fim FROM funcionarios ORDER BY id ASC;")
-    servicos = cursor.fetchall()
+    funcionarios = cursor.fetchall()
     cursor.close()
     conexao.close()
-    return servicos
+    return funcionarios
 
-
-# --- 2. REGRAS E FILTROS DE DISPONIBILIDADE ---
-
-@router.get('/horarios-disponiveis') 
-def horarios_disponiveis(data: str, funcionario_id: int): 
+@router.get('/horarios-disponiveis')
+def horarios_disponiveis(data: str, funcionario_id: int):
+    """
+    Dado um funcionário e uma data, filtra e retorna os horários vagos do expediente dele.
+    """
     conexao = get_bancoDeDados()
     cursor = conexao.cursor()
 
@@ -134,13 +131,15 @@ def horarios_disponiveis(data: str, funcionario_id: int):
     horarios_livres = [h for h in todos_horarios if h not in horarios_ocupados]
 
     return {
-        "expediente": f"{func['horario_inicio']} às {func['horario_fim']}", 
+        "expediente": f"{func['horario_inicio']} às {func['horario_fim']}",
         "horarios_disponiveis": horarios_livres
-    } 
-
+    }
 
 @router.get('/funcionarios-disponiveis')
-def funcionarios_disponiveis(data: str, horario: str): 
+def funcionarios_disponiveis(data: str, horario: str):
+    """
+    Dada uma data e um horário, filtra e retorna quais funcionários estão livres.
+    """
     conexao = get_bancoDeDados()
     cursor = conexao.cursor()
 
@@ -158,13 +157,11 @@ def funcionarios_disponiveis(data: str, horario: str):
     cursor.close()
     conexao.close()
 
-    return ({"funcionarios_disponiveis": funcionarios_livres}) 
+    return {"funcionarios_disponiveis": funcionarios_livres}
 
-
-# --- 3. CRIAR AGENDAMENTO ---
-
-@router.post('/agendar', status_code=201) 
+@router.post('/agendar', status_code=201)
 def criar_agendamento(dados: CriarAgendamento):
+    """Recebe a solicitação de agendamento do cliente e grava no Neon."""
     if not all([dados.cliente_nome.strip(), dados.funcionario_id, dados.servico_id, dados.data, dados.horario]):
         raise HTTPException(status_code=400, detail="Preencha todos os campos obrigatórios.")
 
@@ -173,12 +170,12 @@ def criar_agendamento(dados: CriarAgendamento):
 
     cursor.execute(
         "SELECT id FROM agendamentos WHERE data = %s AND horario = %s AND funcionario_id = %s;",
-        (dados.data, dados.horario, dados.funcionario_id) 
+        (dados.data, dados.horario, dados.funcionario_id)
     )
     if cursor.fetchone():
         cursor.close()
         conexao.close()
-        raise HTTPException(status_code=409, detail="Este horário já foi preenchido por outro cliente.") 
+        raise HTTPException(status_code=409, detail="Este horário já foi preenchido por outro cliente.")
 
     cursor.execute(
         """
@@ -192,4 +189,4 @@ def criar_agendamento(dados: CriarAgendamento):
     cursor.close()
     conexao.close()
 
-    return {"mensagem": "Agendamento realizado com sucesso!", "id": novo_id} 
+    return {"mensagem": "Agendamento realizado com sucesso!", "id": novo_id}
